@@ -1,0 +1,8 @@
+Run starting from runing DistQuantum.py
+
+Issues from mask
+    Currently, only epsilon_greedy_exploration functional, others defunct
+    Currently, only DQN
+
+
+Frequency of telegate and probability of telegate actions?

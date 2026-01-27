@@ -1,0 +1,1 @@
+nohup python results/DistQuantum.py > Run_on_three_qbit.log &
