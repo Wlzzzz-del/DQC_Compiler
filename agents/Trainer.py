@@ -6,11 +6,13 @@ import gym
 from gym import wrappers
 import numpy as np
 import matplotlib.pyplot as plt
+import wandb
 
 # trainer用于训练和可视化
 class Trainer(object):
     """Runs games for given agents. Optionally will visualise and save the results"""
-    def __init__(self, config, agents):
+    def __init__(self, config, agents,wandb_runner):
+        self.wandb_runner = wandb_runner
         self.config = config
         self.agents = agents
         self.agent_to_agent_group = self.create_agent_to_agent_group_dictionary()
@@ -118,11 +120,33 @@ class Trainer(object):
             game_scores, rolling_scores, time_taken = agent.run_n_episodes()
             print("Time taken: {}".format(time_taken), flush=True)
             self.print_two_empty_lines()
+            # 1. 提取本次 run 的各项最大指标
+            # max_game_score: 单局最高分
+            max_game_score = np.max(game_scores) if len(game_scores) > 0 else 0
+            # max_rolling_score: 最高平均分 (通常代表收敛后的最佳性能)
+            max_rolling_score = np.max(rolling_scores) if len(rolling_scores) > 0 else 0
+            # episodes_count: 训练的总回合数
+            episodes_count = len(rolling_scores)
+            # inverted_max: 原始代码逻辑中的负最大值 (通常用于最小化问题的记录)
+            inverted_max_rolling = -1 * max_rolling_score
+            
+            # 2. 记录到 WandB
+            # 建议加上 agent_name 前缀，防止不同 agent 的曲线混在一起
+            self.wandb_runner.log({
+                f"{agent_name}/max_game_score": max_game_score,
+                f"{agent_name}/max_rolling_score": max_rolling_score,
+                f"{agent_name}/episodes_count": episodes_count,
+                f"{agent_name}/inverted_max_rolling": inverted_max_rolling,
+                f"{agent_name}/time_taken": time_taken,
+                "agent_round": agent_round, # 用于对齐横坐标
+                "run_id": run               # 当前是第几次 run
+            })
             agent_results.append([game_scores, rolling_scores, len(rolling_scores), -1 * max(rolling_scores), time_taken])
             if self.config.visualise_individual_results:
                 self.visualise_overall_agent_results([rolling_scores], agent_name, show_each_run=True)
                 plt.show()
             agent_round += 1
+        self.wandb_runner.finish()
         self.results[agent_name] = agent_results
 
     def environment_has_changeable_goals(self, env):

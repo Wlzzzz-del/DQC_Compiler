@@ -45,19 +45,21 @@ class QuantumEvnironment():
         # 计算动作空间的size
         self.action_size = self.generate_action_size()        
         # 计算状态空间的size
-        self.state_size = self.physical_qubits +  self.dag_vals  # num of physical qubits will serve as state size with values representing the identity of present logical qubit, the cooldown should be learned in that implementation
+        # 2是因为EPR+GHZ的num node 状态，4是因为有toffoli三元门
+        self.state_size = 2*self.physical_qubits +  4*self.dag_vals  # num of physical qubits will serve as state size with values representing the identity of present logical qubit, the cooldown should be learned in that implementation
 
         # 产生初始的状态
         self.state_object = self.generate_initial_state_object() 
         # 尝试使用自己设计的函数产生状态
         # self.state = np.array(self.state_object.conver_by_NN())  # create the initial state vector from the init state object
         self.state = np.array(self.state_object.convert_self_to_state_vector())  # create the initial state vector from the init state object
-        print("At the beginning, state is: ", self.state)
+        # print("At the beginning, state is: ", self.state)
 
         self.mask = np.array(self.get_mask())
-        print("DEBUG：在这边先验证初始化后的state和mask维度是否一致：")
-        print("State_shape:",self.state.shape)
-        print("Mask_shape:",self.mask.shape)
+        # print("DEBUG：在这边先验证初始化后的state和mask维度是否一致：")
+        # print("State_shape:",self.state.shape)
+        # print("理想的state_size:",self.state_size)
+        # print("Mask_shape:",self.mask.shape)
     
 
     #the functions below (except for RL_step will need to be modified to simulate distributed quantum circuits)
@@ -76,8 +78,6 @@ class QuantumEvnironment():
         init_state_object = SystemStateClass(self.my_arch.qpu_list,self.my_arch.G, self.my_DAG, qm)# 状态类 可以转化成vector
 
         return init_state_object
-    
-
     
     #!this function generates the action space size based on possible actions that could be taken
     def generate_action_size(self):
@@ -109,7 +109,7 @@ class QuantumEvnironment():
         
 
         self.action_size = self.generate_action_size()        
-        self.state_size = self.physical_qubits +  self.dag_vals  # num of physical qubits will serve as state size with values representing the identity of present logical qubit, the cooldown should be learned in that implementation
+        self.state_size = 2*self.physical_qubits +  4*self.dag_vals  # num of physical qubits will serve as state size with values representing the identity of present logical qubit, the cooldown should be learned in that implementation
 
         self.state_object = self.generate_initial_state_object() 
         self.state = np.array(self.state_object.convert_self_to_state_vector())  # create the initial state vector from the init state object

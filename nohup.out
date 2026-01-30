@@ -1,0 +1,2256 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+topo_order is:  [(4, 0, 0), (1, 10, 0), (17, 12, 0), (11, 13, 0), (16, 0, 1), (8, 15, 1, 1), (12, 10, 1), (3, 0, 2), (17, 0, 3), (3, 2, 13, 3), (9, 0, 4), (5, 3, 4), (13, 17, 3, 5), (4, 5, 11, 5), (17, 1, 6, 6), (11, 13, 6), (3, 1, 7), (15, 6, 7), (13, 2, 7), (11, 8, 7), (1, 14, 8), (0, 3, 8), (2, 6, 8), (14, 16, 9), (0, 4, 9), (1, 6, 3, 9), (0, 12, 10), (14, 4, 10), (9, 1, 10), (0, 9, 11)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+DEBUG: RUNNING DSF MAPPING!
+Running:  129  times and DSF_mapping finished. Best Cost: {best_cost:.4f}
+BEST MAPPING: {0: 34, 1: 54, 2: 49, 3: 60, 4: 48, 5: 40, 6: 59, 7: 30, 8: 39, 9: 29, 10: 52, 11: 38, 12: 57, 13: 42, 14: 36, 15: 41, 16: 58, 17: 43}
+At the beginning, state is:  [ -1.          -1.          -1.          -1.          -1.
+  -1.          -1.          -1.          -1.          -1.
+  -1.          -1.          -1.          -1.          -1.
+  -1.          -1.          -1.          -1.          -1.
+  -1.          -1.          -1.          -1.          -1.
+  -1.          -1.          -1.          -1.           9.
+   7.          -1.          -1.          -1.           0.
+  -1.          14.          -1.          11.           8.
+   5.          15.          13.          17.          -1.
+  -1.          -1.          -1.           4.           2.
+  -1.          -1.          10.          -1.           1.
+  -1.          -1.          12.          16.           6.
+   3.          -1.          -1.          -1.          -1.
+  -1.          -1.          -1.          -1.          -1.
+  -1.          -1.          -1.          -1.          -1.
+  -1.          -1.          -1.          -1.          -1.
+  -1.          -1.          -1.          -1.          -1.
+  -1.          -1.          -1.          -1.          -1.
+  -1.          -1.           4.         999.          -1.
+  -1.          -1.           0.          -1.           8.
+  -1.           0.           1.           4.           1.
+   0.           0.          -1.          -1.          -1.
+  -1.           0.           3.          -1.          -1.
+   0.          -1.           0.          -1.          -1.
+   0.           1.           6.           2.          -1.
+  -1.         943.08051585 949.88217065 890.2985011   -2.
+  -2.          -2.          -2.          -2.          -2.
+  -2.          -2.          -2.          -2.          -2.
+  -2.          -2.          -2.          -2.          -2.
+  -2.          -2.          -2.          -2.          -2.
+  -2.          -2.          -2.        ]
+DEBUG：在这边先验证初始化后的state和mask维度是否一致：
+State_shape: (153,)
+Mask_shape: (153,)
+topo_order is:  [(9, 12, 0), (3, 2, 0), (7, 11, 0), (1, 15, 13, 0), (12, 6, 0, 1), (5, 9, 1), (4, 3, 1), (17, 6, 16, 2), (7, 14, 0, 2), (2, 16, 3), (17, 3, 15, 3), (9, 2, 4), (4, 15, 4), (12, 9, 1, 5), (16, 1, 11, 6), (12, 13, 7, 6), (16, 17, 3, 7), (1, 10, 7), (15, 11, 7), (7, 0, 7), (6, 17, 8, 8), (10, 0, 4, 8), (14, 6, 9), (0, 8, 9), (7, 3, 14, 10), (14, 16, 15, 11), (8, 11, 7, 11), (16, 15, 12), (14, 8, 12), (15, 4, 13)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+DEBUG: RUNNING DSF MAPPING!
+Running:  200  times and DSF_mapping finished. Best Cost: {best_cost:.4f}
+BEST MAPPING: {0: 48, 1: 42, 2: 33, 3: 41, 4: 61, 5: 27, 6: 53, 7: 60, 8: 37, 9: 28, 10: 49, 11: 55, 12: 44, 13: 52, 14: 39, 15: 58, 16: 56, 17: 54}
+AGENT NAME: DDQN
+[1m1.1: DDQN[0m
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/lizhao/.netrc.
+wandb: Currently logged in as: 117_abc (EXE_team) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.24.0
+wandb: Run data is saved locally in /home/lizhao/CompilerDQC-main/wandb/run-20260129_164955-logamt5x
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run wise-forest-4
+wandb: ⭐️ View project at https://wandb.ai/EXE_team/DQC_Compiler
+wandb: 🚀 View run at https://wandb.ai/EXE_team/DQC_Compiler/runs/logamt5x
+wandb: Detected [agents] in use.
+wandb: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
+wandb: For more information, check out the docs at: https://weave-docs.wandb.ai/
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+topo_order is:  [(3, 0, 0), (16, 7, 6, 0), (2, 11, 0), (9, 14, 0), (13, 5, 0), (3, 10, 4, 1), (12, 6, 1), (11, 9, 7, 1), (8, 4, 2), (6, 16, 2), (14, 12, 2), (15, 11, 2), (9, 7, 13, 2), (4, 2, 3), (6, 14, 5, 3), (15, 12, 3), (9, 7, 3), (3, 13, 3), (2, 4, 4), (12, 10, 4), (8, 15, 4), (7, 11, 4), (17, 6, 3, 4), (0, 10, 5), (3, 15, 5), (11, 0, 6), (3, 9, 6), (10, 11, 15, 7), (13, 0, 12, 7), (6, 10, 8)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+DEBUG: RUNNING DSF MAPPING!
+Running:  147  times and DSF_mapping finished. Best Cost: {best_cost:.4f}
+BEST MAPPING: {0: 45, 1: 18, 2: 20, 3: 47, 4: 51, 5: 54, 6: 37, 7: 33, 8: 8, 9: 31, 10: 42, 11: 17, 12: 60, 13: 58, 14: 48, 15: 36, 16: 44, 17: 50}
+topo_order is:  [(12, 2, 0), (11, 4, 16, 0), (14, 15, 0), (10, 8, 0), (5, 6, 0), (16, 9, 1), (15, 4, 1), (8, 7, 1), (10, 2, 1), (14, 6, 1), (5, 9, 2), (7, 17, 2), (7, 3, 3), (1, 7, 4), (1, 5, 16, 5), (7, 2, 15, 5), (5, 10, 6), (16, 11, 6), (1, 4, 8, 6), (13, 2, 6), (12, 5, 7), (10, 3, 7), (0, 11, 7), (1, 16, 7), (2, 17, 7), (14, 5, 8), (9, 0, 8), (4, 16, 8), (14, 5, 9), (0, 14, 10)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+DEBUG: RUNNING DSF MAPPING!
+Running:  187  times and DSF_mapping finished. Best Cost: {best_cost:.4f}
+BEST MAPPING: {0: 61, 1: 44, 2: 48, 3: 28, 4: 57, 5: 39, 6: 40, 7: 59, 8: 56, 9: 43, 10: 19, 11: 62, 12: 26, 13: 22, 14: 54, 15: 47, 16: 36, 17: 58}
+AGENT NAME: DDQN
+[1m1.1: DDQN[0m
+topo_order is:  [(5, 2, 8, 0), (13, 7, 0), (9, 16, 0), (10, 4, 11, 0), (7, 2, 1, 1), (16, 17, 1), (10, 3, 4, 1), (7, 14, 9, 2), (12, 2, 2), (16, 6, 2), (4, 11, 2), (3, 14, 10, 3), (11, 13, 12, 3), (4, 3, 4), (0, 10, 4), (9, 17, 3, 5), (8, 17, 12, 6), (2, 8, 4, 7), (1, 12, 7), (2, 10, 8), (1, 4, 8), (10, 6, 9), (7, 2, 6, 10), (16, 7, 11), (6, 17, 11), (2, 1, 11), (16, 6, 12), (3, 2, 12), (1, 14, 12), (16, 12, 13)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+DEBUG: RUNNING DSF MAPPING!
+Running:  67  times and DSF_mapping finished. Best Cost: {best_cost:.4f}
+BEST MAPPING: {0: 25, 1: 48, 2: 40, 3: 52, 4: 46, 5: 24, 6: 39, 7: 53, 8: 51, 9: 45, 10: 43, 11: 4, 12: 37, 13: 21, 14: 56, 15: 41, 16: 62, 17: 38}
+TITLE  distQuantComp
+####################################
+Device for NN:  cuda:0
+####################################
+start NN_Model: customizedNN(
+  (layers): ModuleList(
+    (0): Linear(in_features=246, out_features=140, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=140, out_features=150, bias=True)
+    (3): ReLU()
+    (4): Linear(in_features=150, out_features=153, bias=True)
+    (5): ReLU()
+  )
+)
+####################################
+Device for NN:  cuda:0
+####################################
+{'learning_rate': 1e-05, 'batch_size': 2560, 'buffer_size': 100000, 'epsilon': 1.0, 'epsilon_decay_rate_denominator': 80, 'discount_rate': 0.99, 'tau': 0.001, 'update_every_n_steps': 5, 'linear_hidden_units': [140, 150], 'final_layer_activation': 'None', 'batch_norm': False, 'gradient_clipping_norm': 0.7, 'learning_iterations': 10, 'clip_rewards': False, 'output_activation': None, 'hidden_activations': 'relu', 'dropout': 0.0, 'initialiser': 'default', 'columns_of_data_to_be_embedded': [], 'embedding_dimensions': [], 'y_range': ()}
+RANDOM SEED  1614098432
+topo_order is:  [(5, 2, 8, 0), (13, 7, 0), (9, 16, 0), (10, 4, 11, 0), (7, 2, 1, 1), (16, 17, 1), (10, 3, 4, 1), (7, 14, 9, 2), (12, 2, 2), (16, 6, 2), (4, 11, 2), (3, 14, 10, 3), (11, 13, 12, 3), (4, 3, 4), (0, 10, 4), (9, 17, 3, 5), (8, 17, 12, 6), (2, 8, 4, 7), (1, 12, 7), (2, 10, 8), (1, 4, 8), (10, 6, 9), (7, 2, 6, 10), (16, 7, 11), (6, 17, 11), (2, 1, 11), (16, 6, 12), (3, 2, 12), (1, 14, 12), (16, 12, 13)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+DEBUG: RUNNING DSF MAPPING!
+Running:  67  times and DSF_mapping finished. Best Cost: {best_cost:.4f}
+BEST MAPPING: {0: 25, 1: 48, 2: 40, 3: 52, 4: 46, 5: 24, 6: 39, 7: 53, 8: 51, 9: 45, 10: 43, 11: 4, 12: 37, 13: 21, 14: 56, 15: 41, 16: 62, 17: 38}
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+Removed node: (9, 16, 0)
+DAG nodes count after removal: 29
+-----we scored 9 16 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-2 ------------------
+------Telequbit performed in 5 using EPR-3 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-2 ------------------
+------Telequbit performed in 13 using EPR-1 ------------------
+------Telequbit performed in 1 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+Removed node: (13, 7, 0)
+DAG nodes count after removal: 28
+-----we scored 13 7 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-2 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-2 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+1
+" Episode 1, Score: -30326.00, Max score seen: -30326.00, Rolling score: -30326.00, Max rolling score seen: -infGym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/lizhao/.netrc.
+wandb: Currently logged in as: 117_abc (EXE_team) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run e2rv2fwc
+wandb: Tracking run with wandb version 0.24.0
+wandb: Run data is saved locally in /home/lizhao/CompilerDQC-main/wandb/run-20260129_183904-e2rv2fwc
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run apricot-oath-5
+wandb: ⭐️ View project at https://wandb.ai/EXE_team/DQC_Compiler
+wandb: 🚀 View run at https://wandb.ai/EXE_team/DQC_Compiler/runs/e2rv2fwc
+wandb: Detected [agents] in use.
+wandb: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
+wandb: For more information, check out the docs at: https://weave-docs.wandb.ai/
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+topo_order is:  [(5, 10, 13, 0), (8, 4, 15, 0), (14, 0, 16, 0), (11, 3, 0), (8, 7, 1), (12, 4, 1), (16, 13, 1), (2, 8, 2), (10, 13, 2), (8, 5, 9, 3), (16, 2, 3), (7, 13, 3), (5, 6, 4), (0, 7, 4), (13, 10, 4), (1, 6, 5), (5, 3, 5), (10, 17, 5), (9, 13, 5), (1, 8, 7, 6), (6, 11, 6), (0, 7, 7), (4, 1, 7), (13, 8, 7), (0, 15, 8), (13, 4, 8), (9, 5, 15, 9), (1, 0, 9), (11, 4, 9), (11, 4, 10)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+DEBUG: RUNNING DSF MAPPING!
+topo_order is:  [(5, 8, 0), (15, 2, 0), (10, 17, 0), (11, 9, 1, 0), (3, 4, 0), (6, 8, 1), (5, 0, 1), (11, 14, 1), (7, 8, 2), (16, 17, 6, 2), (10, 8, 3), (12, 16, 3), (6, 5, 3), (8, 2, 4), (13, 12, 4), (6, 4, 4), (5, 14, 4), (12, 13, 5), (0, 6, 5), (1, 4, 5), (5, 16, 5), (11, 13, 6), (6, 15, 8, 6), (1, 17, 6), (16, 0, 6), (10, 17, 7), (1, 12, 2, 7), (17, 7, 8), (1, 11, 8), (5, 17, 9)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+DEBUG: RUNNING DSF MAPPING!
+AGENT NAME: DDQN
+[1m1.1: DDQN[0m
+topo_order is:  [(11, 10, 0), (7, 8, 0), (1, 16, 0), (2, 15, 0), (5, 10, 14, 1), (9, 0, 7, 1), (16, 1, 1), (8, 15, 3, 1), (11, 14, 2), (0, 13, 2), (9, 12, 2), (15, 3, 2), (11, 0, 2, 3), (12, 10, 3), (15, 14, 6, 3), (1, 13, 11, 4), (8, 6, 4), (14, 4, 4), (13, 7, 5), (1, 10, 5), (14, 6, 5), (3, 0, 7, 6), (14, 5, 16, 6), (9, 3, 7), (1, 0, 7), (15, 9, 8), (1, 0, 8), (9, 8, 9), (3, 9, 10), (2, 8, 10)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+DEBUG: RUNNING DSF MAPPING!
+TITLE  distQuantComp
+####################################
+Device for NN:  cuda:0
+####################################
+start NN_Model: customizedNN(
+  (layers): ModuleList(
+    (0): Linear(in_features=246, out_features=140, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=140, out_features=150, bias=True)
+    (3): ReLU()
+    (4): Linear(in_features=150, out_features=153, bias=True)
+    (5): ReLU()
+  )
+)
+####################################
+Device for NN:  cuda:0
+####################################
+{'learning_rate': 1e-05, 'batch_size': 2560, 'buffer_size': 100000, 'epsilon': 1.0, 'epsilon_decay_rate_denominator': 80, 'discount_rate': 0.99, 'tau': 0.001, 'update_every_n_steps': 5, 'linear_hidden_units': [140, 150], 'final_layer_activation': 'None', 'batch_norm': False, 'gradient_clipping_norm': 0.7, 'learning_iterations': 10, 'clip_rewards': False, 'output_activation': None, 'hidden_activations': 'relu', 'dropout': 0.0, 'initialiser': 'default', 'columns_of_data_to_be_embedded': [], 'embedding_dimensions': [], 'y_range': ()}
+RANDOM SEED  781493666
+topo_order is:  [(11, 10, 0), (7, 8, 0), (1, 16, 0), (2, 15, 0), (5, 10, 14, 1), (9, 0, 7, 1), (16, 1, 1), (8, 15, 3, 1), (11, 14, 2), (0, 13, 2), (9, 12, 2), (15, 3, 2), (11, 0, 2, 3), (12, 10, 3), (15, 14, 6, 3), (1, 13, 11, 4), (8, 6, 4), (14, 4, 4), (13, 7, 5), (1, 10, 5), (14, 6, 5), (3, 0, 7, 6), (14, 5, 16, 6), (9, 3, 7), (1, 0, 7), (15, 9, 8), (1, 0, 8), (9, 8, 9), (3, 9, 10), (2, 8, 10)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+DEBUG: RUNNING DSF MAPPING!
+Removed node: (11, 10, 0)
+DAG nodes count after removal: 29
+-----we scored 11 10 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+Removed node: (1, 16, 0)
+DAG nodes count after removal: 28
+-------we telegate 1 16 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 15 using EPR-1 ------------------
+Removed node: (16, 1, 1)
+DAG nodes count after removal: 27
+-----we scored 16 1 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-1 ------------------
+------Telequbit performed in 15 using EPR-2 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 6 using EPR-1 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+Removed node: (2, 15, 0)
+DAG nodes count after removal: 26
+-----we scored 2 15 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 15 using EPR-1 ------------------
+------Telequbit performed in 6 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-1 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-2 ------------------
+------Telequbit performed in 11 using EPR-3 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 15 using EPR-2 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-2 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-2 ------------------
+------Telequbit performed in 5 using EPR-1 ------------------
+------Telequbit performed in 14 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+Removed node: (7, 8, 0)
+DAG nodes count after removal: 25
+-----we scored 7 8 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-2 ------------------
+1
+" Episode 1, Score: -27152.00, Max score seen: -27152.00, Rolling score: -27152.00, Max rolling score seen: -inftopo_order is:  [(3, 9, 15, 0), (4, 16, 0), (2, 0, 0), (12, 14, 0), (7, 1, 0), (8, 6, 3, 1), (11, 0, 1), (14, 10, 1), (9, 12, 1), (8, 3, 2), (13, 10, 17, 2), (6, 14, 2), (5, 3, 3), (16, 8, 15, 3), (17, 13, 3), (3, 2, 4), (15, 7, 4), (16, 6, 4), (2, 14, 5), (5, 15, 5), (7, 12, 15, 6), (5, 11, 4, 6), (4, 9, 7), (7, 11, 7), (15, 1, 4, 8), (1, 5, 12, 9), (10, 15, 9), (5, 8, 10), (0, 8, 11, 11), (15, 8, 12)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+DEBUG: RUNNING DSF MAPPING!
+Removed node: (12, 14, 0)
+DAG nodes count after removal: 29
+-----we scored 12 14 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 2 using EPR-3 ------------------
+------Telequbit performed in 11 using EPR-2 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 11 using EPR-2 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+Removed node: (4, 16, 0)
+DAG nodes count after removal: 28
+-----we scored 4 16 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 13 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+Removed node: (2, 0, 0)
+DAG nodes count after removal: 27
+-----we scored 2 0 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 14 using EPR-0 ------------------
+Removed node: (7, 1, 0)
+DAG nodes count after removal: 26
+-----we scored 7 1 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-2 ------------------
+------Telequbit performed in 16 using EPR-1 ------------------
+------Telequbit performed in 11 using EPR-2 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+Removed node: (14, 10, 1)
+DAG nodes count after removal: 25
+-------we telegate 14 10 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 12 using EPR-3 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-3 ------------------
+------Telequbit performed in 15 using EPR-2 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-2 ------------------
+------Telequbit performed in 14 using EPR-3 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-4 ------------------
+------Telequbit performed in 1 using EPR-2 ------------------
+------Telequbit performed in 6 using EPR-2 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-2 ------------------
+------Telequbit performed in 6 using EPR-3 ------------------
+------Telequbit performed in 14 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-3 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-2 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 13 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-2 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-2 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-2 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-2 ------------------
+------Telequbit performed in 14 using EPR-1 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-2 ------------------
+------Telequbit performed in 14 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-1 ------------------
+Removed node: (11, 0, 1)
+DAG nodes count after removal: 24
+-------we telegate 11 0 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 15 using EPR-2 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-1 ------------------
+------Telequbit performed in 3 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 15 using EPR-1 ------------------
+2
+" Episode 2, Score: -25554.00, Max score seen: -25554.00, Rolling score: -25554.00, Max rolling score seen: -25554.00topo_order is:  [(6, 11, 0), (0, 3, 5, 0), (15, 16, 0), (10, 2, 4, 0), (17, 7, 0), (12, 3, 14, 1), (0, 6, 1), (4, 17, 1), (12, 7, 2), (0, 11, 2), (3, 6, 2), (1, 4, 2), (9, 17, 2), (12, 10, 8, 3), (11, 7, 3), (1, 13, 3), (9, 4, 3), (16, 15, 10, 4), (4, 17, 7, 4), (8, 9, 4), (3, 10, 5), (2, 7, 11, 5), (12, 4, 5), (15, 3, 6), (16, 2, 6), (4, 17, 6), (15, 10, 7), (9, 2, 12, 7), (2, 0, 8), (17, 2, 10, 9)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+DEBUG: RUNNING DSF MAPPING!
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-2 ------------------
+------Telequbit performed in 13 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-2 ------------------
+Removed node: (15, 16, 0)
+DAG nodes count after removal: 29
+-----we scored 15 16 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 8 using EPR-1 ------------------
+Removed node: (17, 7, 0)
+DAG nodes count after removal: 28
+-------we telegate 17 7 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-3 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-2 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 15 using EPR-3 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-3 ------------------
+------Telequbit performed in 2 using EPR-4 ------------------
+------Telequbit performed in 6 using EPR-2 ------------------
+------Telequbit performed in 6 using EPR-4 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+Removed node: (6, 11, 0)
+DAG nodes count after removal: 27
+-----we scored 6 11 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 16 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 15 using EPR-3 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-2 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-2 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-4 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-3 ------------------
+------Telequbit performed in 8 using EPR-2 ------------------
+------Telequbit performed in 0 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 6 57 23
+Traceback (most recent call last):
+  File "/home/lizhao/CompilerDQC-main/results/DistQuantum.py", line 168, in <module>
+    trainer.run_games_for_agents()
+  File "/home/lizhao/CompilerDQC-main/agents/Trainer.py", line 82, in run_games_for_agents
+    self.run_games_for_agent(agent_number + 1, agent_class)
+  File "/home/lizhao/CompilerDQC-main/agents/Trainer.py", line 120, in run_games_for_agent
+    game_scores, rolling_scores, time_taken = agent.run_n_episodes()
+  File "/home/lizhao/CompilerDQC-main/agents/Base_Agent.py", line 197, in run_n_episodes
+    self.step()
+  File "/home/lizhao/CompilerDQC-main/agents/DQN_agents/DQN.py", line 33, in step
+    self.conduct_action(self.action)
+  File "/home/lizhao/CompilerDQC-main/agents/Base_Agent.py", line 219, in conduct_action
+    self.next_state, self.next_mask, self.reward, self.done, _ = self.environment.step(action)
+  File "/home/lizhao/CompilerDQC-main/QuantumEnv.py", line 82, in step
+    reward, new_state, new_mask, successfulDone = self.quantumEnv.RL_step(action)# 从动作获得 奖励值\状态\mask\完成
+  File "/home/lizhao/CompilerDQC-main/QuatumEnvironment.py", line 127, in RL_step
+    reward, self.state_object, successfulDone = self.state_object.step_given_action(action_num)
+  File "/home/lizhao/CompilerDQC-main/SystemStateClass.py", line 781, in step_given_action
+    matching_scores,cur_reward = self.fill_matching(matching_scores)   ## Here we auto fill with the scores and tele-gates! The possible scores and tele-gate actually are implemented here automatically!
+  File "/home/lizhao/CompilerDQC-main/SystemStateClass.py", line 971, in fill_matching
+    self.perform_action('REMOTE_TOFFOLI', link)
+  File "/home/lizhao/CompilerDQC-main/SystemStateClass.py", line 90, in perform_action
+    self.remote_tofo(link)
+  File "/home/lizhao/CompilerDQC-main/SystemStateClass.py", line 377, in remote_tofo
+    box1, box2, box3 = links[0][0], links[0][1], links[1][1]
+TypeError: 'int' object is not subscriptable
+[1;34mwandb[0m: 
+[1;34mwandb[0m: 🚀 View run [33mapricot-oath-5[0m at: [34mhttps://wandb.ai/EXE_team/DQC_Compiler/runs/e2rv2fwc[0m
+[1;34mwandb[0m: Find logs at: [1;35mwandb/run-20260129_183904-e2rv2fwc/logs[0m
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/lizhao/.netrc.
+wandb: Currently logged in as: 117_abc (EXE_team) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.24.0
+wandb: Run data is saved locally in /home/lizhao/CompilerDQC-main/wandb/run-20260129_221353-8q7rpr0w
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run likely-disco-6
+wandb: ⭐️ View project at https://wandb.ai/EXE_team/DQC_Compiler
+wandb: 🚀 View run at https://wandb.ai/EXE_team/DQC_Compiler/runs/8q7rpr0w
+wandb: Detected [agents] in use.
+wandb: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
+wandb: For more information, check out the docs at: https://weave-docs.wandb.ai/
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+topo_order is:  [(17, 4, 0), (5, 6, 0), (9, 2, 0), (0, 11, 14, 0), (4, 7, 1), (2, 8, 6, 1), (9, 15, 1), (11, 3, 14, 1), (4, 17, 2), (5, 7, 13, 2), (10, 8, 2), (9, 6, 2), (7, 13, 12, 3), (8, 11, 2, 3), (6, 5, 3), (10, 1, 12, 4), (8, 6, 4), (9, 5, 4), (17, 7, 1, 5), (11, 0, 10, 5), (9, 3, 8, 5), (1, 13, 6), (15, 5, 17, 6), (7, 2, 6), (10, 8, 6), (1, 16, 12, 7), (0, 17, 7), (13, 10, 7), (8, 9, 7), (6, 13, 8)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+topo_order is:  [(15, 3, 0), (7, 5, 10, 0), (13, 8, 0), (12, 16, 17, 0), (10, 1, 1), (9, 16, 1), (15, 12, 1), (17, 6, 1), (3, 10, 2), (14, 9, 2), (16, 2, 2), (12, 8, 2), (0, 6, 2), (11, 9, 3), (17, 14, 3), (8, 15, 3), (6, 5, 3), (0, 1, 3), (9, 4, 4), (16, 17, 4), (8, 13, 4), (14, 16, 5), (10, 4, 8, 5), (13, 17, 5), (4, 7, 6), (10, 9, 6), (4, 12, 5, 7), (7, 10, 7), (1, 5, 8), (13, 7, 8)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+AGENT NAME: DDQN
+[1m1.1: DDQN[0m
+topo_order is:  [(9, 5, 7, 0), (8, 2, 0), (14, 3, 0), (16, 5, 1), (17, 7, 1), (1, 9, 1), (0, 8, 1), (4, 14, 1), (6, 3, 13, 1), (7, 17, 2), (16, 1, 15, 2), (0, 10, 5, 2), (17, 16, 3), (1, 13, 3, 3), (14, 0, 3), (16, 9, 4), (13, 12, 4), (6, 1, 4), (0, 4, 4), (16, 11, 5), (17, 12, 5), (13, 14, 6, 5), (6, 10, 6), (13, 1, 6), (8, 6, 7), (17, 5, 10, 7), (16, 5, 8, 8), (5, 17, 9), (9, 5, 10), (11, 5, 11)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+TITLE  distQuantComp
+####################################
+Device for NN:  cuda:0
+####################################
+start NN_Model: customizedNN(
+  (layers): ModuleList(
+    (0): Linear(in_features=246, out_features=140, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=140, out_features=150, bias=True)
+    (3): ReLU()
+    (4): Linear(in_features=150, out_features=153, bias=True)
+    (5): ReLU()
+  )
+)
+####################################
+Device for NN:  cuda:0
+####################################
+{'learning_rate': 1e-05, 'batch_size': 2560, 'buffer_size': 100000, 'epsilon': 1.0, 'epsilon_decay_rate_denominator': 80, 'discount_rate': 0.99, 'tau': 0.001, 'update_every_n_steps': 5, 'linear_hidden_units': [140, 150], 'final_layer_activation': 'None', 'batch_norm': False, 'gradient_clipping_norm': 0.7, 'learning_iterations': 10, 'clip_rewards': False, 'output_activation': None, 'hidden_activations': 'relu', 'dropout': 0.0, 'initialiser': 'default', 'columns_of_data_to_be_embedded': [], 'embedding_dimensions': [], 'y_range': ()}
+RANDOM SEED  1324963350
+topo_order is:  [(9, 5, 7, 0), (8, 2, 0), (14, 3, 0), (16, 5, 1), (17, 7, 1), (1, 9, 1), (0, 8, 1), (4, 14, 1), (6, 3, 13, 1), (7, 17, 2), (16, 1, 15, 2), (0, 10, 5, 2), (17, 16, 3), (1, 13, 3, 3), (14, 0, 3), (16, 9, 4), (13, 12, 4), (6, 1, 4), (0, 4, 4), (16, 11, 5), (17, 12, 5), (13, 14, 6, 5), (6, 10, 6), (13, 1, 6), (8, 6, 7), (17, 5, 10, 7), (16, 5, 8, 8), (5, 17, 9), (9, 5, 10), (11, 5, 11)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+Removed node: (8, 2, 0)
+DAG nodes count after removal: 29
+-----we scored 8 2 ----------
+*************************WE SCORE!!************************
+Removed node: (0, 8, 1)
+DAG nodes count after removal: 28
+-----we scored 0 8 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 4 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-2 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-2 ------------------
+Removed node: (14, 3, 0)
+DAG nodes count after removal: 27
+-----we scored 14 3 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-2 ------------------
+------Telequbit performed in 0 using EPR-3 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-2 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-2 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 11
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 11
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 11
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 11
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 11
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 11
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 55 14
+------Telequbit performed in 6 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-1 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 8 61
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 8 61
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 8 61
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 8 61
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 8 61
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 33 8 61
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-2 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-2 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-1 ------------------
+------Telequbit performed in 6 using EPR-2 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-4 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-3 ------------------
+------Telequbit performed in 16 using EPR-1 ------------------
+------Telequbit performed in 6 using EPR-2 ------------------
+------Telequbit performed in 8 using EPR-3 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-2 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-2 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-2 ------------------
+------Telequbit performed in 6 using EPR-2 ------------------
+------Telequbit performed in 4 using EPR-2 ------------------
+1
+" Episode 1, Score: -16826.00, Max score seen: -16826.00, Rolling score: -16826.00, Max rolling score seen: -inftopo_order is:  [(13, 2, 8, 0), (6, 7, 0), (15, 11, 0), (12, 17, 9, 0), (14, 13, 1), (7, 4, 1), (15, 17, 1), (2, 14, 2), (0, 7, 2), (1, 4, 2), (8, 15, 2), (11, 17, 5, 2), (9, 4, 3), (5, 16, 1, 3), (9, 13, 14, 4), (17, 1, 4), (10, 16, 4), (17, 7, 5), (12, 0, 16, 5), (3, 4, 12, 6), (3, 9, 15, 7), (12, 11, 7), (9, 4, 8), (16, 15, 8), (6, 1, 3, 8), (12, 9, 5, 9), (16, 2, 9), (0, 1, 9), (12, 6, 10), (6, 10, 5, 11)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+Removed node: (15, 11, 0)
+DAG nodes count after removal: 29
+-----we scored 15 11 ----------
+*************************WE SCORE!!************************
+Removed node: (6, 7, 0)
+DAG nodes count after removal: 28
+-----we scored 6 7 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-1 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-3 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-2 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-2 ------------------
+------Telequbit performed in 6 using EPR-3 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+Removed node: (7, 4, 1)
+DAG nodes count after removal: 27
+-------we telegate 7 4 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+Removed node: (1, 4, 2)
+DAG nodes count after removal: 26
+-------we telegate 1 4 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 15 using EPR-1 ------------------
+Removed node: (0, 7, 2)
+DAG nodes count after removal: 25
+-------we telegate 0 7 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 14 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-2 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-2 ------------------
+------Telequbit performed in 3 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-2 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 1 using EPR-3 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-2 ------------------
+------Telequbit performed in 14 using EPR-3 ------------------
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-3 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-2 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 1 using EPR-2 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 13 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-2 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 14 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-2 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+2
+" Episode 2, Score: -27098.00, Max score seen: -16826.00, Rolling score: -27098.00, Max rolling score seen: -27098.00topo_order is:  [(15, 14, 0), (13, 12, 5, 0), (3, 11, 0), (0, 9, 0), (6, 5, 1), (13, 1, 8, 1), (12, 10, 1), (16, 3, 1), (2, 9, 1), (0, 6, 2), (15, 1, 2), (7, 13, 2), (8, 3, 2), (16, 12, 2), (0, 11, 3), (7, 9, 3), (2, 0, 4), (7, 5, 4), (12, 0, 5), (2, 11, 5), (5, 10, 5), (8, 7, 5), (11, 4, 6), (2, 10, 6), (0, 8, 6), (4, 15, 7), (8, 1, 7), (10, 15, 8), (17, 2, 4, 8), (2, 1, 9)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+Removed node: (15, 14, 0)
+DAG nodes count after removal: 29
+-----we scored 15 14 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 21 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 21 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 21 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 21 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 21 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 21 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 21 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 21 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 21 12
+Removed node: (3, 11, 0)
+DAG nodes count after removal: 28
+-----we scored 3 11 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 5 using EPR-0 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 27 37 10
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 27 37 10
+------Telequbit performed in 6 using EPR-0 ------------------
+Removed node: (16, 3, 1)
+DAG nodes count after removal: 27
+-----we scored 16 3 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 16 using EPR-2 ------------------
+Removed node: (0, 9, 0)
+DAG nodes count after removal: 26
+-----we scored 0 9 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-1 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-2 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 13 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-3 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-2 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-4 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 57 7 19
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 57 7 19
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 24 51 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 24 51 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 24 51 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 12 23
+------Telequbit performed in 14 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-2 ------------------
+------Telequbit performed in 5 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-3 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-1 ------------------
+------Telequbit performed in 1 using EPR-1 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-2 ------------------
+Removed node: (2, 9, 1)
+DAG nodes count after removal: 25
+-------we telegate 2 9 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 14 using EPR-2 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-3 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-2 ------------------
+------Telequbit performed in 10 using EPR-2 ------------------
+------Telequbit performed in 13 using EPR-4 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-3 ------------------
+3
+" Episode 3, Score: -16712.00, Max score seen: -16712.00, Rolling score: -16712.00, Max rolling score seen: -16712.00topo_order is:  [(1, 11, 0), (7, 9, 12, 0), (17, 6, 0), (3, 14, 0), (10, 5, 0), (15, 4, 11, 1), (4, 11, 0, 2), (15, 12, 2), (1, 11, 14, 3), (0, 4, 13, 3), (12, 17, 3), (1, 15, 4), (8, 14, 4), (7, 13, 4), (16, 17, 9, 4), (8, 15, 5), (17, 2, 5), (9, 0, 5), (17, 13, 12, 6), (1, 9, 6, 6), (0, 16, 6), (13, 3, 7), (15, 9, 7), (6, 17, 7), (10, 3, 8), (3, 12, 0, 9), (3, 13, 2, 10), (12, 10, 10), (8, 2, 11), (8, 13, 12)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+Removed node: (17, 6, 0)
+DAG nodes count after removal: 29
+-----we scored 17 6 ----------
+*************************WE SCORE!!************************
+Removed node: (1, 11, 0)
+DAG nodes count after removal: 28
+-----we scored 1 11 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 12 using EPR-0 ------------------
+Removed node: (10, 5, 0)
+DAG nodes count after removal: 27
+-----we scored 10 5 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-3 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-2 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-3 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-2 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-3 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-2 ------------------
+------Telequbit performed in 13 using EPR-3 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-2 ------------------
+------Telequbit performed in 16 using EPR-3 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-2 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-2 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-2 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+Removed node: (3, 14, 0)
+DAG nodes count after removal: 26
+-------we telegate 3 14 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 14 using EPR-2 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-3 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-2 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+4
+" Episode 4, Score: -29326.00, Max score seen: -16712.00, Rolling score: -29326.00, Max rolling score seen: -16712.00topo_order is:  [(3, 0, 5, 0), (5, 4, 1), (3, 10, 11, 1), (4, 13, 14, 2), (6, 5, 2), (2, 10, 2), (4, 3, 1, 3), (17, 13, 12, 3), (6, 7, 3), (10, 3, 4), (17, 5, 4), (9, 6, 4), (17, 16, 5), (6, 12, 5), (13, 9, 5), (12, 11, 6), (8, 13, 6), (14, 12, 7), (5, 8, 7), (8, 9, 8), (6, 9, 9), (8, 0, 4, 9), (5, 9, 10), (6, 11, 17, 10), (4, 14, 10), (0, 16, 10), (9, 5, 11), (14, 7, 12, 11), (12, 6, 12), (12, 4, 13)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+------Telequbit performed in 3 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-2 ------------------
+------Telequbit performed in 0 using EPR-3 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-3 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-4 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-4 ------------------
+------Telequbit performed in 14 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-3 ------------------
+------Telequbit performed in 17 using EPR-2 ------------------
+------Telequbit performed in 1 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-2 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-3 ------------------
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-2 ------------------
+------Telequbit performed in 15 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-1 ------------------
+------Telequbit performed in 14 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-2 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+5
+" Episode 5, Score: -32316.00, Max score seen: -16712.00, Rolling score: -32316.00, Max rolling score seen: -16712.00topo_order is:  [(9, 16, 0), (14, 8, 0), (2, 12, 0), (17, 0, 0), (15, 16, 1), (5, 9, 1), (3, 14, 1), (12, 1, 1), (13, 16, 2), (4, 9, 11, 2), (14, 15, 2), (13, 6, 3), (4, 8, 3), (14, 16, 3), (1, 8, 4), (4, 15, 4), (7, 14, 4), (5, 16, 4), (3, 2, 7, 5), (9, 14, 5), (7, 11, 10, 6), (3, 14, 6), (11, 2, 7), (7, 5, 4, 7), (12, 3, 7), (14, 15, 13, 7), (3, 13, 8), (16, 14, 8), (15, 4, 8), (4, 16, 9)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+Removed node: (9, 16, 0)
+DAG nodes count after removal: 29
+-----we scored 9 16 ----------
+*************************WE SCORE!!************************
+Removed node: (2, 12, 0)
+DAG nodes count after removal: 28
+-----we scored 2 12 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 2 using EPR-2 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+Removed node: (14, 8, 0)
+DAG nodes count after removal: 27
+-----we scored 14 8 ----------
+*************************WE SCORE!!************************
+Removed node: (3, 14, 1)
+DAG nodes count after removal: 26
+-----we scored 3 14 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 1 using EPR-1 ------------------
+Removed node: (12, 1, 1)
+DAG nodes count after removal: 25
+-----we scored 12 1 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-2 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-1 ------------------
+Removed node: (15, 16, 1)
+DAG nodes count after removal: 24
+-----we scored 15 16 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 4 using EPR-1 ------------------
+Removed node: (17, 0, 0)
+DAG nodes count after removal: 23
+-------we telegate 17 0 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 2 using EPR-2 ------------------
+------Telequbit performed in 7 using EPR-3 ------------------
+------Telequbit performed in 1 using EPR-2 ------------------
+------Telequbit performed in 1 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-3 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-2 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+Removed node: (5, 9, 1)
+DAG nodes count after removal: 22
+-------we telegate 5 9 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 6 using EPR-0 ------------------
+Removed node: (14, 15, 2)
+DAG nodes count after removal: 21
+-----we scored 14 15 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-3 ------------------
+------Telequbit performed in 2 using EPR-2 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-2 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-3 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-4 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-2 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-2 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-2 ------------------
+------Telequbit performed in 1 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-2 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 3 34
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 34 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 34 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 34 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 34 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 34 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 34 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 34 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 34 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 34 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 34 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 34 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 34 40 5
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 34 40 5
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 34 40 5
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 34 40 5
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 34 40 5
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 40 5 35
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 40 5 35
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 5 40 35
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 5 40 35
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 5 40 35
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 40 35 3
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 40 29
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 40 29
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 3 40 29
+------Telequbit performed in 8 using EPR-1 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 14 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 14 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 14 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 14 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 14 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 14 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+------Telequbit performed in 5 using EPR-3 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 13 21
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 36 13 21
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 13 37 21
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 13 37 21
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 13 37 21
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 14 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 14 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 14 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 14 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 14 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 14 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 14 22
+------Telequbit performed in 7 using EPR-0 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 14 36 17
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 14 36 17
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 14 36 17
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 14 36 17
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 14 36 17
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 14 36 17
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 14 36 17
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 14 36 17
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 14 using EPR-0 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 28
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 12 37
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 12 37
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 12 37
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 12 37
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 12 37
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 12 37 22
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 22 13
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 38
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 38
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 38
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 38
+------Telequbit performed in 14 using EPR-0 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 38
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 38
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 38
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 38
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 38
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 38
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 38 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 38 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 38 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 37
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 37
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 37
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 13 37
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-3 ------------------
+------Telequbit performed in 11 using EPR-2 ------------------
+------Telequbit performed in 5 using EPR-2 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 32 14 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 32 14 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 32 14 40
+------Telequbit performed in 17 using EPR-1 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 26 43 4
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 26 43 4
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 43 4 26
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 43 4 26
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 43 4 26
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 43 4 26
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 43 4 26
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 43 4 26
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 43 4 26
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 43 4 26
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 43 4 26
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 43 4 26
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 43 4 26
+------Telequbit performed in 14 using EPR-1 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 21 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 21 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 21 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 21 12
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 37 21 12
+------Telequbit performed in 14 using EPR-1 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 21 12 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 21 12 40
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 21 12 40
+------Telequbit performed in 10 using EPR-0 ------------------
+6
+" Episode 6, Score:  35480.00, Max score seen:  35480.00, Rolling score:  35480.00, Max rolling score seen:  35480.00topo_order is:  [(9, 0, 0), (17, 1, 0), (8, 12, 0), (14, 4, 0), (3, 16, 0), (11, 1, 1), (12, 17, 1), (2, 4, 1), (3, 16, 1), (6, 11, 7, 2), (17, 13, 2), (4, 3, 2), (9, 7, 1, 3), (0, 11, 3), (9, 12, 4), (9, 10, 17, 5), (11, 5, 12, 5), (9, 1, 6), (10, 9, 15, 7), (5, 8, 10, 8), (9, 13, 8), (16, 0, 10, 9), (9, 12, 9), (6, 13, 9), (3, 10, 10), (17, 9, 10), (13, 11, 12, 10), (7, 13, 17, 11), (12, 17, 12), (7, 10, 12)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+Removed node: (17, 1, 0)
+DAG nodes count after removal: 29
+-----we scored 17 1 ----------
+*************************WE SCORE!!************************
+Removed node: (9, 0, 0)
+DAG nodes count after removal: 28
+-----we scored 9 0 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 14 using EPR-0 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+Removed node: (3, 16, 0)
+DAG nodes count after removal: 27
+-----we scored 3 16 ----------
+*************************WE SCORE!!************************
+Removed node: (3, 16, 1)
+DAG nodes count after removal: 26
+-----we scored 3 16 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 15 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-3 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+Removed node: (11, 1, 1)
+DAG nodes count after removal: 25
+-----we scored 11 1 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-2 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+Removed node: (14, 4, 0)
+DAG nodes count after removal: 24
+-----we scored 14 4 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-3 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-2 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-4 ------------------
+------Telequbit performed in 6 using EPR-1 ------------------
+Removed node: (2, 4, 1)
+DAG nodes count after removal: 23
+-----we scored 2 4 ----------
+*************************WE SCORE!!************************
+Removed node: (4, 3, 2)
+DAG nodes count after removal: 22
+-----we scored 4 3 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-3 ------------------
+------Telequbit performed in 11 using EPR-2 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-4 ------------------
+------Telequbit performed in 0 using EPR-2 ------------------
+------Telequbit performed in 0 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+Removed node: (8, 12, 0)
+DAG nodes count after removal: 21
+-------we telegate 8 12 ----------
+*************************WE TELEGATE!!************************
+7
+" Episode 7, Score: -24164.00, Max score seen:  35480.00, Rolling score: -24164.00, Max rolling score seen:  35480.00topo_order is:  [(8, 3, 13, 0), (16, 14, 12, 0), (9, 15, 0), (7, 0, 6, 0), (5, 1, 0), (11, 8, 1), (12, 10, 1), (17, 9, 1), (16, 6, 2, 1), (11, 10, 2), (7, 17, 2), (14, 9, 2), (8, 2, 1, 2), (6, 17, 3), (16, 14, 3), (4, 6, 13, 4), (5, 17, 4), (14, 11, 4), (4, 3, 15, 5), (6, 4, 6), (16, 6, 7), (9, 4, 7), (2, 16, 8), (7, 4, 8), (9, 16, 9), (17, 2, 9), (10, 0, 7, 9), (6, 0, 14, 10), (7, 10, 10), (13, 7, 5, 11)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+Removed node: (9, 15, 0)
+DAG nodes count after removal: 29
+-----we scored 9 15 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+Removed node: (17, 9, 1)
+DAG nodes count after removal: 28
+-------we telegate 17 9 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 5 using EPR-2 ------------------
+------Telequbit performed in 5 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-3 ------------------
+------Telequbit performed in 15 using EPR-2 ------------------
+Removed node: (5, 1, 0)
+DAG nodes count after removal: 27
+-----we scored 5 1 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 11 using EPR-3 ------------------
+------Telequbit performed in 15 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-3 ------------------
+------Telequbit performed in 11 using EPR-2 ------------------
+------Telequbit performed in 15 using EPR-1 ------------------
+------Telequbit performed in 11 using EPR-2 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-2 ------------------
+------Telequbit performed in 6 using EPR-3 ------------------
+------Telequbit performed in 5 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-2 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-1 ------------------
+------Telequbit performed in 13 using EPR-0 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 57
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 23 4 60
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 60 7
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 60 7
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 60 7
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 60 7
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 60 7
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 60 7
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 60 7
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 60 7
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 60 7
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 22 60 7
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-2 ------------------
+------Telequbit performed in 4 using EPR-2 ------------------
+------Telequbit performed in 9 using EPR-2 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-3 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-5 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-4 ------------------
+------Telequbit performed in 15 using EPR-2 ------------------
+------Telequbit performed in 3 using EPR-3 ------------------
+------Telequbit performed in 9 using EPR-2 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 3 using EPR-2 ------------------
+------Telequbit performed in 3 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-1 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-2 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-2 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-1 ------------------
+------Telequbit performed in 11 using EPR-3 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-1 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 5 57 18
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 5 57 18
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 5 57 18
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 5 57 18
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 5 57 18
+------Telequbit performed in 13 using EPR-1 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 18 1 54
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 18 1 54
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 18 1 54
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 18 1 54
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 18 1 54
+------Telequbit performed in 1 using EPR-2 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 3 using EPR-1 ------------------
+8
+" Episode 8, Score: -11894.00, Max score seen:  35480.00, Rolling score: -11894.00, Max rolling score seen:  35480.00topo_order is:  [(9, 17, 0), (6, 5, 0), (10, 16, 0), (12, 3, 0), (4, 0, 17, 1), (8, 10, 1), (9, 7, 0, 2), (17, 4, 2), (5, 10, 2), (15, 5, 3), (13, 6, 15, 4), (13, 0, 5), (15, 2, 5), (7, 0, 14, 6), (13, 16, 6), (14, 12, 7), (13, 5, 7), (2, 16, 11, 7), (12, 9, 8), (14, 15, 0, 8), (17, 3, 12, 9), (10, 16, 0, 9), (10, 11, 7, 10), (9, 5, 0, 10), (16, 3, 10), (0, 1, 11), (9, 8, 15, 11), (14, 3, 10, 11), (12, 15, 12), (1, 12, 15, 13)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+Removed node: (10, 16, 0)
+DAG nodes count after removal: 29
+-----we scored 10 16 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-2 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-3 ------------------
+------Telequbit performed in 16 using EPR-2 ------------------
+------Telequbit performed in 16 using EPR-1 ------------------
+------Telequbit performed in 17 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 14 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-4 ------------------
+Removed node: (8, 10, 1)
+DAG nodes count after removal: 28
+-----we scored 8 10 ----------
+*************************WE SCORE!!************************
+Removed node: (9, 17, 0)
+DAG nodes count after removal: 27
+-------we telegate 9 17 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 8 using EPR-3 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-4 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-2 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 14 using EPR-0 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-1 ------------------
+------Telequbit performed in 14 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 14 using EPR-3 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 9 using EPR-1 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-2 ------------------
+------Telequbit performed in 15 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 7 using EPR-2 ------------------
+------Telequbit performed in 15 using EPR-2 ------------------
+------Telequbit performed in 0 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-2 ------------------
+Removed node: (12, 3, 0)
+DAG nodes count after removal: 26
+-------we telegate 12 3 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-3 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-2 ------------------
+------Telequbit performed in 14 using EPR-3 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-2 ------------------
+------Telequbit performed in 7 using EPR-0 ------------------
+------Telequbit performed in 7 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 3 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-2 ------------------
+------Telequbit performed in 15 using EPR-1 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-2 ------------------
+9
+" Episode 9, Score: -28930.00, Max score seen:  35480.00, Rolling score: -28930.00, Max rolling score seen:  35480.00topo_order is:  [(12, 6, 0), (7, 9, 0), (3, 17, 10, 0), (11, 13, 0), (15, 14, 12, 1), (16, 7, 9, 1), (5, 3, 17, 1), (1, 15, 2), (9, 6, 7, 2), (16, 8, 2), (17, 1, 3), (9, 7, 0, 3), (10, 7, 4), (0, 4, 4), (12, 10, 14, 5), (6, 7, 5), (5, 9, 10, 6), (14, 3, 6), (6, 16, 4, 6), (0, 10, 7), (9, 2, 7), (1, 4, 6, 7), (0, 8, 8), (13, 2, 11, 8), (1, 10, 8), (0, 12, 9), (14, 11, 9), (4, 2, 9), (1, 12, 10), (8, 4, 10)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+Removed node: (12, 6, 0)
+DAG nodes count after removal: 29
+-------we telegate 12 6 ----------
+*************************WE TELEGATE!!************************
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 17 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-3 ------------------
+------Telequbit performed in 6 using EPR-2 ------------------
+------Telequbit performed in 16 using EPR-2 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 6 using EPR-1 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-0 ------------------
+------Telequbit performed in 0 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 0 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 5 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-2 ------------------
+------Telequbit performed in 4 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 5 using EPR-2 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 4 using EPR-2 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-1 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-2 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-2 ------------------
+------Telequbit performed in 2 using EPR-0 ------------------
+------Telequbit performed in 16 using EPR-1 ------------------
+------Telequbit performed in 4 using EPR-2 ------------------
+------Telequbit performed in 9 using EPR-0 ------------------
+------Telequbit performed in 14 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-1 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 8 using EPR-1 ------------------
+------Telequbit performed in 8 using EPR-0 ------------------
+------Telequbit performed in 6 using EPR-0 ------------------
+------Telequbit performed in 11 using EPR-0 ------------------
+------Telequbit performed in 1 using EPR-0 ------------------
+10
+" Episode 10, Score: -33184.00, Max score seen:  35480.00, Rolling score: -33184.00, Max rolling score seen:  35480.00topo_order is:  [(12, 1, 0), (3, 8, 0), (15, 5, 0), (7, 14, 9, 0), (16, 6, 0), (12, 1, 13, 1), (11, 5, 3, 1), (2, 15, 1), (7, 10, 1), (12, 0, 16, 2), (14, 13, 4, 2), (15, 17, 2), (3, 9, 10, 2), (8, 14, 3), (4, 1, 3), (17, 11, 3), (6, 15, 3), (13, 9, 3), (1, 11, 4), (15, 12, 10, 4), (15, 5, 5), (17, 10, 5), (12, 5, 6), (15, 16, 6), (2, 10, 6), (5, 9, 7), (16, 14, 7), (15, 8, 7), (2, 17, 7), (10, 15, 8)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+------Telequbit performed in 10 using EPR-2 ------------------
+Removed node: (15, 5, 0)
+DAG nodes count after removal: 29
+-----we scored 15 5 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 0 using EPR-2 ------------------
+------Telequbit performed in 10 using EPR-1 ------------------
+------Telequbit performed in 16 using EPR-0 ------------------
+Removed node: (12, 1, 0)
+DAG nodes count after removal: 28
+-----we scored 12 1 ----------
+*************************WE SCORE!!************************
+------Telequbit performed in 3 using EPR-3 ------------------
+------Telequbit performed in 10 using EPR-0 ------------------
+------Telequbit performed in 12 using EPR-1 ------------------
+------Telequbit performed in 3 using EPR-1 ------------------
+------Telequbit performed in 3 using EPR-1 ------------------
+*************************WE REMOTE_TOFOLIO_GATE!!************************
+等待实现remote tofo
+Remote tofo link: 51 13 24
+Removed node: (7, 14, 9, 0)
+DAG nodes count after removal: 27
+Traceback (most recent call last):
+  File "/home/lizhao/CompilerDQC-main/results/DistQuantum.py", line 168, in <module>
+    trainer.run_games_for_agents()
+  File "/home/lizhao/CompilerDQC-main/agents/Trainer.py", line 82, in run_games_for_agents
+    self.run_games_for_agent(agent_number + 1, agent_class)
+  File "/home/lizhao/CompilerDQC-main/agents/Trainer.py", line 120, in run_games_for_agent
+    game_scores, rolling_scores, time_taken = agent.run_n_episodes()
+  File "/home/lizhao/CompilerDQC-main/agents/Base_Agent.py", line 197, in run_n_episodes
+    self.step()
+  File "/home/lizhao/CompilerDQC-main/agents/DQN_agents/DQN.py", line 33, in step
+    self.conduct_action(self.action)
+  File "/home/lizhao/CompilerDQC-main/agents/Base_Agent.py", line 219, in conduct_action
+    self.next_state, self.next_mask, self.reward, self.done, _ = self.environment.step(action)
+  File "/home/lizhao/CompilerDQC-main/QuantumEnv.py", line 82, in step
+    reward, new_state, new_mask, successfulDone = self.quantumEnv.RL_step(action)# 从动作获得 奖励值\状态\mask\完成
+  File "/home/lizhao/CompilerDQC-main/QuatumEnvironment.py", line 127, in RL_step
+    reward, self.state_object, successfulDone = self.state_object.step_given_action(action_num)
+  File "/home/lizhao/CompilerDQC-main/SystemStateClass.py", line 782, in step_given_action
+    # Fill any scores or tele-gates that can happen immediately after the action of this time slot
+  File "/home/lizhao/CompilerDQC-main/SystemStateClass.py", line 972, in fill_matching
+    ):
+  File "/home/lizhao/CompilerDQC-main/SystemStateClass.py", line 90, in perform_action
+    self.remote_tofo(link)
+  File "/home/lizhao/CompilerDQC-main/SystemStateClass.py", line 421, in remote_tofo
+    # 5. 销毁 EPR 对 (ball1 是这一对 EPR 的 ID)
+AttributeError: 'QubitMappingClass' object has no attribute 'destroy_GHZ_pair'
+[1;34mwandb[0m: 
+[1;34mwandb[0m: 🚀 View run [33mlikely-disco-6[0m at: [34mhttps://wandb.ai/EXE_team/DQC_Compiler/runs/8q7rpr0w[0m
+[1;34mwandb[0m: Find logs at: [1;35mwandb/run-20260129_221353-8q7rpr0w/logs[0m
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/lizhao/.netrc.
+wandb: Currently logged in as: 117_abc (EXE_team) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run vw7wtniw
+wandb: Tracking run with wandb version 0.24.0
+wandb: Run data is saved locally in /home/lizhao/CompilerDQC-main/wandb/run-20260130_200817-vw7wtniw
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run dry-galaxy-7
+wandb: ⭐️ View project at https://wandb.ai/EXE_team/DQC_Compiler
+wandb: 🚀 View run at https://wandb.ai/EXE_team/DQC_Compiler/runs/vw7wtniw
+wandb: Detected [agents] in use.
+wandb: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
+wandb: For more information, check out the docs at: https://weave-docs.wandb.ai/
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+building quanutm edge ( 0 , 16 )
+building quanutm edge ( 0 , 36 )
+building quanutm edge ( 16 , 36 )
+topo_order is:  [(6, 12, 0, 0), (8, 3, 4, 0), (11, 10, 0), (9, 15, 0), (5, 6, 1), (0, 4, 1), (12, 3, 1), (14, 8, 1), (16, 13, 5, 2), (0, 4, 2), (3, 11, 2), (16, 12, 3), (2, 13, 3), (0, 17, 3), (7, 11, 8, 3), (2, 14, 4), (1, 17, 4), (13, 8, 4), (15, 11, 4), (16, 1, 5), (3, 8, 14, 5), (11, 5, 10, 5), (12, 6, 1, 6), (16, 17, 6), (7, 3, 10, 6), (11, 2, 14, 6), (9, 12, 7), (13, 6, 12, 8), (9, 14, 8), (1, 0, 9, 9)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+topo_order is:  [(16, 9, 5, 0), (8, 2, 7, 0), (6, 3, 15, 0), (1, 4, 14, 0), (17, 0, 0), (2, 10, 6, 1), (4, 3, 1), (8, 0, 1), (12, 9, 6, 2), (15, 13, 2, 2), (3, 5, 2), (9, 14, 3), (6, 5, 16, 3), (17, 6, 4), (13, 5, 4), (6, 8, 5), (10, 11, 17, 5), (16, 1, 13, 5), (8, 6, 6), (7, 17, 6), (13, 9, 6), (6, 14, 7), (0, 15, 7, 7), (10, 17, 9, 7), (1, 7, 8), (9, 12, 8), (17, 2, 8), (11, 7, 9), (15, 7, 10), (3, 15, 11)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+AGENT NAME: DDQN
+[1m1.1: DDQN[0m
+/home/lizhao/miniconda3/envs/myenv/lib/python3.10/site-packages/torch/cuda/__init__.py:182: UserWarning: CUDA initialization: Unexpected error from cudaGetDeviceCount(). Did you run some cuda functions before calling NumCudaDevices() that might have already set an error? Error 804: forward compatibility was attempted on non supported HW (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:119.)
+  return torch._C._cuda_getDeviceCount() > 0
+topo_order is:  [(4, 16, 0), (11, 17, 0), (2, 5, 0), (15, 16, 7, 1), (1, 11, 0, 1), (17, 6, 1), (2, 8, 1), (5, 14, 1), (13, 1, 2), (12, 8, 2), (9, 11, 2, 2), (2, 8, 0, 3), (9, 6, 3), (2, 0, 12, 4), (3, 8, 4), (17, 9, 6, 4), (4, 2, 7, 5), (0, 1, 5), (8, 3, 5), (5, 17, 5), (4, 11, 6), (15, 14, 1, 6), (5, 17, 6), (9, 11, 7), (13, 14, 6, 7), (5, 16, 7), (0, 11, 8), (12, 1, 9, 8), (2, 5, 8), (6, 1, 9)]
+[DEBUGing] node to qpu id {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 2, 37: 2, 38: 2, 39: 2, 40: 2, 41: 2, 42: 2, 43: 2, 44: 2, 45: 2, 46: 2, 47: 2, 48: 2, 49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 2, 55: 2, 56: 2, 57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 2}
+TITLE  distQuantComp
+####################################
+Device for NN:  cuda:0
+####################################
+Traceback (most recent call last):
+  File "/home/lizhao/CompilerDQC-main/results/DistQuantum.py", line 168, in <module>
+    trainer.run_games_for_agents()
+  File "/home/lizhao/CompilerDQC-main/agents/Trainer.py", line 82, in run_games_for_agents
+    self.run_games_for_agent(agent_number + 1, agent_class)
+  File "/home/lizhao/CompilerDQC-main/agents/Trainer.py", line 116, in run_games_for_agent
+    agent = agent_class(agent_config)
+  File "/home/lizhao/CompilerDQC-main/agents/DQN_agents/DDQN.py", line 8, in __init__
+    DQN_With_Fixed_Q_Targets.__init__(self, config)
+  File "/home/lizhao/CompilerDQC-main/agents/DQN_agents/DQN_With_Fixed_Q_Targets.py", line 10, in __init__
+    DQN.__init__(self, config)
+  File "/home/lizhao/CompilerDQC-main/agents/DQN_agents/DQN.py", line 18, in __init__
+    self.q_network_local = self.create_NN(input_dim=self.state_size, output_dim=self.action_size)
+  File "/home/lizhao/CompilerDQC-main/agents/Base_Agent.py", line 352, in create_NN
+    device = self.device).to(self.device)
+  File "/home/lizhao/miniconda3/envs/myenv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1371, in to
+    return self._apply(convert)
+  File "/home/lizhao/miniconda3/envs/myenv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/home/lizhao/miniconda3/envs/myenv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/home/lizhao/miniconda3/envs/myenv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 957, in _apply
+    param_applied = fn(param)
+  File "/home/lizhao/miniconda3/envs/myenv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1357, in convert
+    return t.to(
+  File "/home/lizhao/miniconda3/envs/myenv/lib/python3.10/site-packages/torch/cuda/__init__.py", line 410, in _lazy_init
+    torch._C._cuda_init()
+RuntimeError: Unexpected error from cudaGetDeviceCount(). Did you run some cuda functions before calling NumCudaDevices() that might have already set an error? Error 804: forward compatibility was attempted on non supported HW
+[1;34mwandb[0m: 
+[1;34mwandb[0m: 🚀 View run [33mdry-galaxy-7[0m at: [34mhttps://wandb.ai/EXE_team/DQC_Compiler/runs/vw7wtniw[0m
+[1;34mwandb[0m: Find logs at: [1;35mwandb/run-20260130_200817-vw7wtniw/logs[0m

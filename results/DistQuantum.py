@@ -20,11 +20,24 @@ from agents.DQN_agents.DQN import DQN
 from agents.DQN_agents.DQN_With_Fixed_Q_Targets import DQN_With_Fixed_Q_Targets
 import torch
 import os
+import wandb
+
+run = wandb.init(
+    # Set the wandb entity where your project will be logged (generally your team name).
+    entity="EXE_team",
+    # Set the wandb project where this run will be logged.
+    project="DQC_Compiler",
+    # Track hyperparameters and run metadata.
+    config={
+        "feature": "state_before_normalization",
+    },
+)
+
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 os.environ["TORCH_USE_CUDA_DSA"] = "1"
 config = Config()
 
-config.seed = 123453
+config.seed = 7
 config.num_episodes_to_run = 250   # control number of episodes was 60
 config.file_to_save_data_results = "results/data_and_graphs/dist_quantum_Results_Data.pkl"   #save results 
 config.file_to_save_results_graph = "results/data_and_graphs/dist_quantum__Results_Graph.png"   #save graph
@@ -151,7 +164,7 @@ if __name__ == "__main__":
     
     #[DQN]  #[DDQN]  #[SAC_Discrete, DDQN, Dueling_DDQN, DQN, DQN_With_Fixed_Q_Targets,SNN_HRL, SAC, DDPG, 
               #DDQN_With_exPrioritised_Experience_Replay, A2C, PPO, A3C ]
-    trainer = Trainer(config, AGENTS)
+    trainer = Trainer(config, AGENTS,run)
     trainer.run_games_for_agents()
 
 

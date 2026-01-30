@@ -42,4 +42,4 @@ class Constants:
     IF_ENABLE_TOFFOLIOS = True
     result_path = "running_result/test"
     USE_DEC_DEDLINE = False
-    USE_DSF_MAPPING = True
+    USE_DSF_MAPPING = False
