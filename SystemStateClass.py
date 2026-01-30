@@ -88,6 +88,7 @@ class SystemStateClass():
         # REMOTE_TOFFOLI 在FILL Match中调用
             print('*************************WE REMOTE_TOFOLIO_GATE!!************************')
             self.remote_tofo(link)
+            self.update_frontier()
 
         else:
             raise ValueError(f"Unknown action: {action}")
@@ -370,11 +371,13 @@ class SystemStateClass():
     def remote_tofo(self, links):
         # self.generate_GHZ(links)
         # 接受的link是由多条link组成
+
+        # 调度进remote_tofo的无效动作有点多
         print("等待实现remote tofo")
         print("Remote tofo link:",*links)
          # self.generate_GHZ(links)
         flag = False
-        box1, box2, box3 = links[0][0], links[0][1], links[1][1]
+        box1, box2, box3 = links
         max_cd = 0
         ball1, ball2, ball3 = self.qm.get_ghz_ball(box1), self.qm.get_ghz_ball(box2), self.qm.get_ghz_ball(box3)
 
@@ -417,7 +420,7 @@ class SystemStateClass():
                     
                     # 5. 销毁 EPR 对 (ball1 是这一对 EPR 的 ID)
                     # self.qm.destroy_EPR_pair(ball1)
-                    self.qm.destroy_GHZ_pair(ball1)
+                    self.qm.destroy_GHZ_triplet(ball1)
                     # print("GHZ pool:",self.qm.GHZ_triplets)
 
                     # 6. 获取涉及的物理节点 (Box)
@@ -1147,78 +1150,78 @@ class SystemStateClass():
 
         return distance_metric
 
-    def convert_self_to_state_vector(self):
-        # --- 1. 物理映射编码 (my_list) ---
-        my_list = [-1] * (self.qm.numNodes)
-        for key, value in self.qm.box_to_ball.items():
-            if isinstance(value, str):
-                prefix, num_str = value.split('-')
-                value = int(num_str) + self.my_DAG.numQubits
-            my_list[key] = value
-        # print("STATE: physical mapping:",my_list)
+    # def convert_self_to_state_vector(self):
+    #     # --- 1. 物理映射编码 (my_list) ---
+    #     my_list = [-1] * (self.qm.numNodes)
+    #     for key, value in self.qm.box_to_ball.items():
+    #         if isinstance(value, str):
+    #             prefix, num_str = value.split('-')
+    #             value = int(num_str) + self.my_DAG.numQubits
+    #         my_list[key] = value
+    #     # print("STATE: physical mapping:",my_list)
 
-        # --- 2. Decoherence time 信息
-        # 现在采用一个QPU一个退相干时间
-        dec_time = [-1] * (len(self.qpu_list))
-        # print(self.G)
-        for u in range(len(self.qpu_list)):
-            # print(node)
-            # print("validation:",self.G.nodes[0])
-            # print(node)
-            # NOTE:HERE
-            dec_time[u] = self.qpu_list[u].dec_time
+    #     # --- 2. Decoherence time 信息
+    #     # 现在采用一个QPU一个退相干时间
+    #     dec_time = [-1] * (len(self.qpu_list))
+    #     # print(self.G)
+    #     for u in range(len(self.qpu_list)):
+    #         # print(node)
+    #         # print("validation:",self.G.nodes[0])
+    #         # print(node)
+    #         # NOTE:HERE
+    #         dec_time[u] = self.qpu_list[u].dec_time
 
-        # print("STATE: Dec_time:",dec_time)
+    #     # print("STATE: Dec_time:",dec_time)
 
-        # --- 3. 计算每个逻辑比特的 Urgency ---
-        node_urgency = [-1] * self.qm.numNodes
+    #     # --- 3. 计算每个逻辑比特的 Urgency ---
+    #     node_urgency = [-1] * self.qm.numNodes
         
-        # 先计算所有逻辑比特的层级
-        logical_urgency = [999] * self.my_DAG.numQubits
-        found = [False] * self.my_DAG.numQubits
-        # for q_i, q_j, layer in self.my_DAG.topo_order:
-        #     for q in [q_i, q_j]:
-        #         if not found[q]:
-        #             logical_urgency[q] = layer
-        #             found[q] = True
+    #     # 先计算所有逻辑比特的层级
+    #     logical_urgency = [999] * self.my_DAG.numQubits
+    #     found = [False] * self.my_DAG.numQubits
+    #     # for q_i, q_j, layer in self.my_DAG.topo_order:
+    #     #     for q in [q_i, q_j]:
+    #     #         if not found[q]:
+    #     #             logical_urgency[q] = layer
+    #     #             found[q] = True
         
-        for node in self.my_DAG.topo_order:
-            # node 的结构可能是 (q1, q2, layer) 或 (c1, c2, t, layer)
-            # 最后一个元素总是 layer
-            layer = node[-1]
+    #     for node in self.my_DAG.topo_order:
+    #         # node 的结构可能是 (q1, q2, layer) 或 (c1, c2, t, layer)
+    #         # 最后一个元素总是 layer
+    #         layer = node[-1]
             
-            # 前面所有的元素都是涉及的量子比特索引
-            involved_qubits = node[:-1] 
+    #         # 前面所有的元素都是涉及的量子比特索引
+    #         involved_qubits = node[:-1] 
 
-            # 更新涉及比特的 urgency
-            for q in involved_qubits:
-                if not found[q]:
-                    logical_urgency[q] = layer
-                    found[q] = True
+    #         # 更新涉及比特的 urgency
+    #         for q in involved_qubits:
+    #             if not found[q]:
+    #                 logical_urgency[q] = layer
+    #                 found[q] = True
             
-            # 性能优化：如果所有比特都找到了，可以提前退出
-            if all(found):
-                break
+    #         # 性能优化：如果所有比特都找到了，可以提前退出
+    #         if all(found):
+    #             break
 
-        # 将逻辑比特的紧迫性映射到它当前所在的物理节点上
-        for phys_node, log_qubit in self.qm.box_to_ball.items():
-            if isinstance(log_qubit, int): # 只针对普通逻辑比特
-                node_urgency[phys_node] = logical_urgency[log_qubit]
-        # print("STATE: Node_urgency:",node_urgency)
+    #     # 将逻辑比特的紧迫性映射到它当前所在的物理节点上
+    #     for phys_node, log_qubit in self.qm.box_to_ball.items():
+    #         if isinstance(log_qubit, int): # 只针对普通逻辑比特
+    #             node_urgency[phys_node] = logical_urgency[log_qubit]
+    #     # print("STATE: Node_urgency:",node_urgency)
 
-        state_vector = my_list + node_urgency+dec_time
-        N = self.qm.numNodes + 3*self.my_DAG.numGates # N is the size of a correct state vector
-        if len(state_vector) < N:
-            #print("test")
-            # 如果state size不够则拼接填充
-            state_vector.extend([-2] * (N - len(state_vector)))
-        # print("状态矩阵的大小:",len(state_vector))
-        return state_vector
+    #     state_vector = my_list + node_urgency+dec_time
+    #     N = self.qm.numNodes + 3*self.my_DAG.numGates # N is the size of a correct state vector
+    #     if len(state_vector) < N:
+    #         #print("test")
+    #         # 如果state size不够则拼接填充
+    #         state_vector.extend([-2] * (N - len(state_vector)))
+    #     # print("状态矩阵的大小:",len(state_vector))
+    #     return state_vector
 
 
 
     #convert from the actual state class object to the state vector as the RL agent wants it
-    def convert_self_to_state_vector1(self):
+    def convert_self_to_state_vector(self):
         # 将真实状态矩阵转换成RLstyle格式
         # Initialize a list with None (or a placeholder) for each possible index
         my_list = [-1] * (self.qm.numNodes) # QPU的所有的节点数
@@ -1231,12 +1234,24 @@ class SystemStateClass():
                 prefix, num_str = value.split('-')
                 value = int(num_str) + self.my_DAG.numQubits # Convert the numerical part to an integer (max logical qubit since there does not exist such and after)
             my_list[key] = value# 将用于EPR的QPU 记录为实际value
+
+        my_list2 = [-1] * (self.qm.numNodes) # QPU的所有的节点数
+        for key, value in self.qm.GHZ_box_to_ball.items():
+            # Instead of EPR-x we now need just the number (i.e., numNodes+x as an index)
+            # Check if value is a string
+            if isinstance(value, str):
+            # Attempt to extract the number part if the format is as expected
+                prefix, num_str = value.split('-')
+                value = int(num_str) + self.my_DAG.numQubits # Convert the numerical part to an integer (max logical qubit since there does not exist such and after)
+            my_list2[key] = value# 将用于EPR的QPU 记录为实际value
+
         # 将电路图转为拓扑结构插在state vector 后面
         single_numbers_topo_list = [element for tup in self.my_DAG.topo_order for element in tup]  #break (x,y,z) tuple inside topo_order to x,y,z (x,y qubits and z the layer)
         #the above is needed for breaking into the state space vector
         # print("topo_list:",single_numbers_topo_list)
-        state_vector = my_list + single_numbers_topo_list
-        N = self.qm.numNodes + 3*self.my_DAG.numGates # N is the size of a correct state vector
+        state_vector = my_list + my_list2 + single_numbers_topo_list
+        # 3代表gate的（x,y,z),2代表mylist 和 mylist2
+        N = 2*self.qm.numNodes + 4*self.my_DAG.numGates # N is the size of a correct state vector
         if len(state_vector) < N:
             #print("test")
             # 如果state size不够则拼接填充

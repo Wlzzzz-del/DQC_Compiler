@@ -49,7 +49,7 @@ class QubitMappingClass():
 
         if initial_mapping is None:
             initial_mapping = self.generate_random_initial_mapping()
-        print("DEBUG: RUNNING DSF MAPPING!")
+        # print("DEBUG: RUNNING DSF MAPPING!")
         if Constants.USE_DSF_MAPPING:
             initial_mapping = self.DSF_mapping()
         else:

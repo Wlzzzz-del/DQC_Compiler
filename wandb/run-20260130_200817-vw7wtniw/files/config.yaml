@@ -1,0 +1,42 @@
+_wandb:
+    value:
+        cli_version: 0.24.0
+        e:
+            p9k3yikd1cah6rsev81qaw0zq24s07d5:
+                codePath: results/DistQuantum.py
+                codePathLocal: results/DistQuantum.py
+                cpu_count: 24
+                cpu_count_logical: 32
+                disk:
+                    /:
+                        total: "1966736678912"
+                        used: "1403624529920"
+                email: a1174547806@gmail.com
+                executable: /home/lizhao/miniconda3/envs/myenv/bin/python
+                git:
+                    commit: f70cc6889f09e6344dabbd8d78dc01f7df1eedb0
+                    remote: https://github.com/Wlzzzz-del/DQC_Compiler.git
+                host: PBWS1006639
+                memory:
+                    total: "134843219968"
+                os: Linux-6.14.0-37-generic-x86_64-with-glibc2.39
+                program: /home/lizhao/CompilerDQC-main/results/DistQuantum.py
+                python: CPython 3.10.19
+                root: /home/lizhao/CompilerDQC-main
+                startedAt: "2026-01-30T20:08:17.350461Z"
+                writerId: p9k3yikd1cah6rsev81qaw0zq24s07d5
+        m: []
+        python_version: 3.10.19
+        t:
+            "1":
+                - 1
+            "2":
+                - 1
+            "3":
+                - 16
+            "4": 3.10.19
+            "5": 0.24.0
+            "12": 0.24.0
+            "13": linux-x86_64
+feature:
+    value: state_before_normalization
