@@ -6,6 +6,7 @@ import random
 import numpy as np
 import torch
 import time
+import wandb
 # import tensorflow as tf
 #from nn_builder.pytorch.NN import NN
 # from tensorboardX import SummaryWriter
@@ -15,6 +16,16 @@ from agents.customNets import customizedNN, customizedNN_policyGrad
 class Base_Agent(object):
 
     def __init__(self, config):
+        self.run = wandb.init(
+            # Set the wandb entity where your project will be logged (generally your team name).
+            entity="EXE_team",
+            # Set the wandb project where this run will be logged.
+            project="DQC_Compiler",
+            # Track hyperparameters and run metadata.
+            config={
+                "feature": "state_before_normalization",
+            },
+        )
         self.logger = self.setup_logger()
         self.debug_mode = config.debug_mode
         # if self.debug_mode: self.tensorboard = SummaryWriter()
@@ -241,12 +252,35 @@ class Base_Agent(object):
             if len(self.rolling_results) > self.rolling_score_window:
                 self.max_rolling_score_seen = self.rolling_results[-1]
 
+    # def print_rolling_result(self):
+    #     """Prints out the latest episode results"""
+    #     text = """"\r Episode {0}, Score: {3: .2f}, Max score seen: {4: .2f}, Rolling score: {1: .2f}, Max rolling score seen: {2: .2f}"""
+    #     sys.stdout.write(text.format(len(self.game_full_episode_scores), self.rolling_results[-1], self.max_rolling_score_seen,
+    #                                  self.game_full_episode_scores[-1], self.max_episode_score_seen))
+    #     sys.stdout.flush()
+    
     def print_rolling_result(self):
-        """Prints out the latest episode results"""
-        text = """"\r Episode {0}, Score: {3: .2f}, Max score seen: {4: .2f}, Rolling score: {1: .2f}, Max rolling score seen: {2: .2f}"""
-        sys.stdout.write(text.format(len(self.game_full_episode_scores), self.rolling_results[-1], self.max_rolling_score_seen,
-                                     self.game_full_episode_scores[-1], self.max_episode_score_seen))
+        """Prints out and logs the latest episode results"""
+        # 1. 提取当前的所有指标
+        episode_num = len(self.game_full_episode_scores)
+        current_score = self.game_full_episode_scores[-1]
+        rolling_score = self.rolling_results[-1]
+        max_score = self.max_episode_score_seen
+        max_rolling = self.max_rolling_score_seen
+
+        # 2. 终端控制台打印 (保留你的原始逻辑，但我优化了变量顺序使其更易读)
+        text = "\r Episode {0}, Score: {1: .2f}, Max score seen: {2: .2f}, Rolling score: {3: .2f}, Max rolling score seen: {4: .2f}"
+        sys.stdout.write(text.format(episode_num, current_score, max_score, rolling_score, max_rolling))
         sys.stdout.flush()
+
+
+        self.run.log({
+                "Train/Score": current_score,
+                "Train/Max_Score_Seen": max_score,
+                "Train/Rolling_Score": rolling_score,
+                "Train/Max_Rolling_Score_Seen": max_rolling
+            }, step=episode_num)  # 强制将 X 轴绑定为 Episode 数量
+        # self.run.update()
 
     def show_whether_achieved_goal(self):
         """Prints out whether the agent achieved the environment target goal"""

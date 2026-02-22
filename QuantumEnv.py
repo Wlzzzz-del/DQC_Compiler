@@ -121,9 +121,10 @@ class EnvUpdater(gym.Env):      #gym is an opanAI's environment generator tools.
         # print("action: ", action)
         # print("new_state: ", new_state)
         # print("new_mask: ", new_mask)
-        # print("reward: ", reward)
- 
-        return new_state, new_mask, reward, done, {}       #supposed to return new state, reward and done to the learning agent
+        # print("[DEBUGGING]reward: ", reward/1000)
+        
+        # 尝试将reward缩放到更小的范围，看看能不能稳定训练
+        return new_state, new_mask, reward/1000, done, {}       #supposed to return new state, reward and done to the learning agent
 
 
     def reset(self):

@@ -9,12 +9,14 @@ class Constants:
     COOLDOWN_SCORE = 1
     COOLDOWN_TELE_GATE = 5
     COOLDOWN_TELE_QUBIT = 5
+    COOLDOWN_TELE_TOFFOLI = 7
 
     ENTANGLEMENT_PROBABILITY = 0.95 
 
     REWARD_STOP = -20 
     REWARD_FOR_SWAP = 0
     REWARD_SCORE = 500  
+    REWARD_SCORE_TOFFOLI = 600  
 
     NUMQ = 18  # number of qubits for the random dag/circuit
     NUMG = 30  # number of gates for the random dag/circuit

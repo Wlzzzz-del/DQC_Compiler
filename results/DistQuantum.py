@@ -22,17 +22,6 @@ import torch
 import os
 import wandb
 
-run = wandb.init(
-    # Set the wandb entity where your project will be logged (generally your team name).
-    entity="EXE_team",
-    # Set the wandb project where this run will be logged.
-    project="DQC_Compiler",
-    # Track hyperparameters and run metadata.
-    config={
-        "feature": "state_before_normalization",
-    },
-)
-
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 os.environ["TORCH_USE_CUDA_DSA"] = "1"
 config = Config()
@@ -160,11 +149,11 @@ config.hyperparameters = {
 
 if __name__ == "__main__":
     torch.multiprocessing.set_start_method('spawn')
-    AGENTS = [DDQN]  # the value for values, try [DQN] or [PPO] (I think [DDQN] it's fine) 
+    AGENTS = [DQN]  # the value for values, try [DQN] or [PPO] (I think [DDQN] it's fine) 
     
     #[DQN]  #[DDQN]  #[SAC_Discrete, DDQN, Dueling_DDQN, DQN, DQN_With_Fixed_Q_Targets,SNN_HRL, SAC, DDPG, 
               #DDQN_With_exPrioritised_Experience_Replay, A2C, PPO, A3C ]
-    trainer = Trainer(config, AGENTS,run)
+    trainer = Trainer(config, AGENTS)
     trainer.run_games_for_agents()
 
 

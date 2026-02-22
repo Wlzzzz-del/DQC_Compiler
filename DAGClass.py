@@ -91,32 +91,6 @@ class DAGClass():
             for pred in self.DAG.predecessors(node):
                 layers[node] = max(layers[node], layers[pred] + 1)
         return layers
-    
-
-        
-
-    # def remove_node(self, node): #It does not check whether it is possible to implement the gate
-    #     ball1, ball2 = node
-    #     # Find nodes with matching first and second elements.
-    #     matching_nodes = [node for node in self.DAG if (node[0] == ball1 and node[1] == ball2) or (node[1] == ball1 and node[0] == ball2)]
-    #     # Return the node with the smallest third element. We need it to remove the correct gate (the first that appears in the layering)
-    #     node_to_remove = min(matching_nodes, key=lambda node: node[2]) if matching_nodes else None
-    #     # Remove the node from the graph.
-    #     self.DAG.remove_node(node_to_remove)
-    #     # Remove the node from topo_order.
-    #     self.topo_order.remove(node_to_remove)
-    #     print("DAG nodes after removal", self.DAG.nodes)
-
-
-    # def print_DAG(self):
-    #     # Create a dictionary of positions based on topological order and layer
-    #     pos = {node: (i%3, self.layers[node]) for i, node in enumerate(self.topo_order)}
-    #     # Draw the Directed Graph
-    #     fig, ax = plt.subplots()
-    #     nx.draw(self.DAG, pos, with_labels=True, node_color='lightblue', node_size=1500, ax=ax)
-    #     plt.savefig("figs/tofo_DAG.png")
-    #     plt.show()
-    #     return
 
     def compute_numQubits(self):
         # Use a set to store unique numbers from the first two components of each node
@@ -131,7 +105,6 @@ class DAGClass():
         numQubit = len(unique_numbers)
         return numQubit
 
-# ========= 新增的函数 添加toffoli dag=========== 
     def generate_toffoli_dag(self, numQ, numG):
         # qubit_layers 追踪每个比特当前所在的最后层数
         qubit_layers = {qubit: 0 for qubit in range(numQ)}
@@ -178,87 +151,87 @@ class DAGClass():
         return DAG
 
     def print_DAG(self):
-            """
-            绘制 DAG 图。
-            布局策略：
-            X轴: 时间层级 (Layer)
-            Y轴: 涉及比特的平均位置 (Qubit Index Average)
-            """
-            plt.figure(figsize=(12, 6)) # 设置画布大小，宽一点更清晰
+        """
+        绘制 DAG 图。
+        布局策略：
+        X轴: 时间层级 (Layer)
+        Y轴: 涉及比特的平均位置 (Qubit Index Average)
+        """
+        plt.figure(figsize=(12, 6)) # 设置画布大小，宽一点更清晰
+        
+        pos = {}
+        for node in self.DAG.nodes:
+            # node 结构示例: (c1, c2, t, layer) 或 (c, t, layer)
+            # 最后一个元素是 layer，前面的是 qubit indices
+            qubits = node[:-1]
+            layer = node[-1]
             
-            pos = {}
-            for node in self.DAG.nodes:
-                # node 结构示例: (c1, c2, t, layer) 或 (c, t, layer)
-                # 最后一个元素是 layer，前面的是 qubit indices
-                qubits = node[:-1]
-                layer = node[-1]
-                
-                # X 坐标: 时间层级
-                x = layer
-                
-                # Y 坐标: 为了防止重叠，使用比特索引的平均值
-                # 例如 (0, 1, layer) -> y = 0.5
-                # 例如 (2, 4, layer) -> y = 3.0
-                y = sum(qubits) / len(qubits)
-                
-                # 这里的 -y 是为了让 Qubit 0 在顶部，符合通常的电路图习惯
-                pos[node] = (x, -y) 
+            # X 坐标: 时间层级
+            x = layer
+            
+            # Y 坐标: 为了防止重叠，使用比特索引的平均值
+            # 例如 (0, 1, layer) -> y = 0.5
+            # 例如 (2, 4, layer) -> y = 3.0
+            y = sum(qubits) / len(qubits)
+            
+            # 这里的 -y 是为了让 Qubit 0 在顶部，符合通常的电路图习惯
+            pos[node] = (x, -y) 
 
-            # 绘制图形
-            # node_size 可以根据标签长度动态调整，或者设个固定值
-            nx.draw(self.DAG, pos, 
-                    with_labels=True, 
-                    node_color='lightblue', 
-                    edge_color='gray',
-                    node_size=2000, 
-                    font_size=8,
-                    arrowsize=20)
-            
-            plt.title("Quantum Circuit DAG Visualization")
-            plt.xlabel("Layer (Time Step)")
-            plt.ylabel("Qubit Index (Approx)")
-            
-            # 移除坐标轴刻度让图更干净
-            plt.axis('on') # 或者 'off'
-            plt.grid(True, linestyle='--', alpha=0.5)
-            
-            plt.savefig("figs/tofo_DAG.png")
-            plt.show()
-            # return
+        # 绘制图形
+        # node_size 可以根据标签长度动态调整，或者设个固定值
+        nx.draw(self.DAG, pos, 
+                with_labels=True, 
+                node_color='lightblue', 
+                edge_color='gray',
+                node_size=2000, 
+                font_size=8,
+                arrowsize=20)
+        
+        plt.title("Quantum Circuit DAG Visualization")
+        plt.xlabel("Layer (Time Step)")
+        plt.ylabel("Qubit Index (Approx)")
+        
+        # 移除坐标轴刻度让图更干净
+        plt.axis('on') # 或者 'off'
+        plt.grid(True, linestyle='--', alpha=0.5)
+        
+        plt.savefig("figs/tofo_DAG.png")
+        plt.show()
+        # return
 
     def remove_node(self, node): 
-            """
-            移除指定的节点。
-            逻辑：查找所有涉及相同量子比特集合的门，并移除其中层级（Layer）最早的一个。
-            兼容 CNOT (2-qubit) 和 Toffoli (3-qubit)。
-            """
-            # 获取目标节点涉及的比特集合（排除最后一个元素 layer）
-            target_qubits = set(node[:-1]) 
+        """
+        移除指定的节点。
+        逻辑：查找所有涉及相同量子比特集合的门，并移除其中层级（Layer）最早的一个。
+        兼容 CNOT (2-qubit) 和 Toffoli (3-qubit)。
+        """
+        # 获取目标节点涉及的比特集合（排除最后一个元素 layer）
+        target_qubits = set(node[:-1]) 
+        
+        matching_nodes = []
+        for n in self.DAG.nodes:
+            # 获取当前遍历节点涉及的比特集合
+            current_qubits = set(n[:-1])
             
-            matching_nodes = []
-            for n in self.DAG.nodes:
-                # 获取当前遍历节点涉及的比特集合
-                current_qubits = set(n[:-1])
-                
-                # 比较比特集合是否相同 (忽略顺序，例如 (0,1) 和 (1,0) 视为相同)
-                if current_qubits == target_qubits:
-                    matching_nodes.append(n)
+            # 比较比特集合是否相同 (忽略顺序，例如 (0,1) 和 (1,0) 视为相同)
+            if current_qubits == target_qubits:
+                matching_nodes.append(n)
+        
+        # 找到层级最早的节点（元组的最后一个元素是 layer）
+        if matching_nodes:
+            node_to_remove = min(matching_nodes, key=lambda x: x[-1])
             
-            # 找到层级最早的节点（元组的最后一个元素是 layer）
-            if matching_nodes:
-                node_to_remove = min(matching_nodes, key=lambda x: x[-1])
-                
-                # 从图中移除
-                self.DAG.remove_node(node_to_remove)
-                
-                # 从拓扑序列表中移除 (如果存在)
-                if node_to_remove in self.topo_order:
-                    self.topo_order.remove(node_to_remove)
-                
-                print(f"Removed node: {node_to_remove}")
-                print("DAG nodes count after removal:", self.DAG.number_of_nodes())
-            else:
-                print("Node not found or already removed.")
+            # 从图中移除
+            self.DAG.remove_node(node_to_remove)
+            
+            # 从拓扑序列表中移除 (如果存在)
+            if node_to_remove in self.topo_order:
+                self.topo_order.remove(node_to_remove)
+            
+            print(f"Removed node: {node_to_remove}")
+            print("DAG nodes count after removal:", self.DAG.number_of_nodes())
+        else:
+            print("Node not found or already removed.")
 
     def generate_mixed_dag_list(self, numQ, numG, toffoli_prob=0.3):
         """
@@ -347,6 +320,3 @@ class DAGClass():
                 qubit_most_recent_node[qubit] = current_node
                 
         return DAG
-
-# try_ = DAGClass()
-# try_.print_DAG()
