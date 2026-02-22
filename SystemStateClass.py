@@ -373,7 +373,7 @@ class SystemStateClass():
         # 接受的link是由多条link组成
 
         # 调度进remote_tofo的无效动作有点多
-        print("等待实现remote tofo")
+        # print("等待实现remote tofo")
         print("Remote tofo link:",*links)
          # self.generate_GHZ(links)
         flag = False
@@ -384,9 +384,9 @@ class SystemStateClass():
         if ball1 not in self.qm.GHZ_triplets or ball2 not in self.qm.GHZ_triplets or ball3 not in self.qm.GHZ_triplets or ball1 != ball2 or ball2!=ball3 or ball3!=ball1:
             return False
 
-        neighbors_ball1 = set(self.qm.get_ball(neighbor) for neighbor in self.G.neighbors(box1))
-        neighbors_ball2 = set(self.qm.get_ball(neighbor) for neighbor in self.G.neighbors(box2))
-        neighbors_ball3 = set(self.qm.get_ball(neighbor) for neighbor in self.G.neighbors(box3))
+        neighbors_ball1 = set(self.qm.get_ghz_ball(neighbor) for neighbor in self.G.neighbors(box1))
+        neighbors_ball2 = set(self.qm.get_ghz_ball(neighbor) for neighbor in self.G.neighbors(box2))
+        neighbors_ball3 = set(self.qm.get_ghz_ball(neighbor) for neighbor in self.G.neighbors(box3))
 
         for gate_info in self.frontier: 
             
@@ -433,19 +433,19 @@ class SystemStateClass():
                     max_cd = max(self.G.nodes[box_q1]['weight'], 
                                  self.G.nodes[box_q2]['weight'], 
                                  self.G.nodes[box_q3]['weight'], 
-                                 self.G.nodes[links[0][0]]['weight'], 
-                                 self.G.nodes[links[0][1]]['weight'],
-                                 self.G.nodes[links[1][1]]['weight'],
+                                 self.G.nodes[links[0]]['weight'], 
+                                 self.G.nodes[links[1]]['weight'],
+                                 self.G.nodes[links[2]]['weight'],
                                  )
                     
-                    new_weight = max_cd + Constants.COOLDOWN_TELE_GATE
+                    new_weight = max_cd + Constants.COOLDOWN_TELE_TOFFOLI
                     
                     self.G.nodes[box_q1]['weight'] = new_weight
                     self.G.nodes[box_q2]['weight'] = new_weight
                     self.G.nodes[box_q3]['weight'] = new_weight
-                    self.G.nodes[links[0][0]]['weight'] = new_weight
-                    self.G.nodes[links[0][1]]['weight'] = new_weight
-                    self.G.nodes[links[1][1]]['weight'] = new_weight
+                    self.G.nodes[links[0]]['weight'] = new_weight
+                    self.G.nodes[links[1]]['weight'] = new_weight
+                    self.G.nodes[links[2]]['weight'] = new_weight
                     
                     print("-------we telegate", ball1_frontier, ball2_frontier, ball3_frontier,"----------")
                     flag = True
@@ -782,7 +782,7 @@ class SystemStateClass():
         # Fill any scores or tele-gates that can happen immediately after the action of this time slot
         matching_scores = []  #which links were triggered for scores and telegate
         matching_scores,cur_reward = self.fill_matching(matching_scores)   ## Here we auto fill with the scores and tele-gates! The possible scores and tele-gate actually are implemented here automatically!
-        reward += cur_reward                   
+        reward += cur_reward
         
         
         self.distance_metric = self.calculate_distance_metric() # this metric decides the moving reward - what actions did make the qubits that should come together closer?
@@ -840,9 +840,9 @@ class SystemStateClass():
                         matching.append(link)
                         break 
                 
-                # 3. 情况 B: 处理三元门 (Toffoli) - 有 3 个比特
-                # 注意：Toffoli 不能仅凭一条链路执行，通常需要检查第三个点的连通性
-                # 如果你之前没有添加 Toffoli 的特殊处理逻辑，这里可以直接 pass 跳过
+        # 3. 情况 B: 处理三元门 (Toffoli) - 有 3 个比特
+        # 注意：Toffoli 不能仅凭一条链路执行，通常需要检查第三个点的连通性
+        # 如果你之前没有添加 Toffoli 的特殊处理逻辑，这里可以直接 pass 跳过
         import itertools
         for link1, link2 in itertools.combinations(all_links, 2):
             unique_boxes = set(link1).union(set(link2))
@@ -852,47 +852,6 @@ class SystemStateClass():
                 ball1_frontier, ball2_frontier,ball3_frontier = involved_qubits
                 if{ball1_frontier, ball2_frontier, ball3_frontier} == {three_balls[0], three_balls[1], three_balls[2]}:
                     self.perform_action("SCORE_TOFFOLI",[link1,link2])
-                    # print("DEBUGGING tofoli gate_info:", gate_info) 
-                    # # NOTE:三元门这边如果连通是不是可以直接去掉?
-                    # # NOTE:看上面处理CNOT的逻辑 然后看怎么修改
-                    # for link2 in all_links:
-                    #     if link2 == link: continue
-                    #     nodes_link1 = set(link)
-                    #     nodes_link2 = set(link2)
-                    #     common_nodes = nodes_link1.intersection(nodes_link2)
-
-                    #     # 如果没有公共点，说明这两条边不相连，无法构成 3-qubit 结构
-                    #     if len(common_nodes) != 1:
-                    #         continue
-                    #     all_3_boxes = list(nodes_link1.union(nodes_link2)) # [boxA, boxB, boxC]
-
-                    #     # 3. 获取这 3 个节点上的逻辑比特
-                    #     balls_on_structure = []
-                    #     has_empty_slot = False
-                    #     for box in all_3_boxes:
-                    #         b = self.qm.get_ball(box)
-                    #         if b is None:
-                    #             has_empty_slot = True
-                    #             break
-                    #         balls_on_structure.append(b)
-                        
-                    #     # 如果物理位置上有空位，说明比特没凑齐，跳过
-                    #     if has_empty_slot:
-                    #         continue
-
-                    #     ball1_frontier, ball2_frontier, ball3_frontier = involved_qubits
-                    #     target_qubits_set = {ball1_frontier, ball2_frontier, ball3_frontier}
-                    #     current_qubits_set = set(balls_on_structure)
-
-                    #     if target_qubits_set == current_qubits_set:
-                    #         self.perform_action("TOFFOLI", (link, link2)) 
-                    #         # 6. 更新奖励和匹配列表
-                    #         cur_reward += Constants.REWARD_TOFOLLI # 确保你有这个常量
-                    #         # 标记这两条边都被占用了
-                    #         matching.append(link)
-                    #         matching.append(link2)
-                    # pass
-
         # Separate loop to iterate over EPR pairs for tele-gate action
         # 遍历所有EPR pairs
         for ball in list(self.qm.EPR_pairs.keys()):
@@ -906,56 +865,30 @@ class SystemStateClass():
             # Iterate over the frontier
             # fix: 使用 gate_info 接收不定长的元组，避免直接解包报错
             for gate_info in self.frontier:
-                
+
                 # 提取涉及的逻辑比特 (去掉最后一个元素 layer)
                 involved_qubits = gate_info[:-1]
 
-                # === 关键修复：只处理二元门 (CNOT等) ===
-                # Tele-gate 利用一个 EPR 对，只能服务于 2-qubit 门
-                # 如果遇到 Toffoli (len=3)，这里必须跳过，否则会逻辑错误
                 if len(involved_qubits) == 2:
                     ball1_frontier, ball2_frontier = involved_qubits
-                    # print("EPR frontiers:",ball1_frontier, ball2_frontier)
-                    # print("EPR neighbors_ball:",neighbors_ball1, neighbors_ball2)
-                    # Check if the frontier balls are neighbors to the boxes and if action is possible
                     # 检查逻辑比特是否位于 EPR 对两端的物理邻居中
                     if ((ball1_frontier in neighbors_ball1 and ball2_frontier in neighbors_ball2) or
                         (ball1_frontier in neighbors_ball2 and ball2_frontier in neighbors_ball1)):
-                        
-                        # Perform the tele-gate action and append link to matching
                         self.perform_action('tele-gate', link) 
                         cur_reward += Constants.REWARD_SCORE
                         matching.append(link)
-                        
-                        # 成功执行了一个 Tele-gate，消耗了当前这个 EPR 对 (link)
-                        # 必须 break 跳出 frontier 循环，防止同一个 EPR 被多次使用
                         break
 
         for ball in list(self.qm.GHZ_triplets.keys()):
             link = self.qm.query_GHZ_pair(ball)
             box1,box2,box3 = link
-            # 定位到包含GHZ的QPU上的逻辑物理比特
-            # nei_set = set( neighbor for neighbor in self.G.neighbors(box1) if  self.G.edges[(box1, neighbor)].get('label') != 'quantum')
-            # print("ghz box1",box1)
-            # print("nei_set:",nei_set)
-            # print("看看self.g长啥样",self.G.edges)
-            # Get_ghz_ball是获取某个box应该是Node上对应的GHZ ID
-            neighbors_ball1 = set( self.qm.get_ghz_ball(neighbor) for neighbor in self.G.neighbors(box1) if  self.G.edges[(box1, neighbor)].get('label') != 'quantum')
+            neighbors_ball1 = set(self.qm.get_ghz_ball(neighbor) for neighbor in self.G.neighbors(box1) if  self.G.edges[(box1, neighbor)].get('label') != 'quantum')
             neighbors_ball2 = set(self.qm.get_ghz_ball(neighbor) for neighbor in self.G.neighbors(box2) if  self.G.edges[(box2, neighbor)].get('label') != 'quantum') #changed here!!!
             neighbors_ball3 = set(self.qm.get_ghz_ball(neighbor) for neighbor in self.G.neighbors(box3) if  self.G.edges[(box3, neighbor)].get('label') != 'quantum') #changed here!!!
-            # print("neighbor1:",neighbors_ball1)
-            # print("neighbor2:",neighbors_ball2)
-            # print("neighbor3:",neighbors_ball3)
             for gate_info in self.frontier:
-                # 提取涉及的逻辑比特 (去掉最后一个元素 layer)
                 involved_qubits = gate_info[:-1]
                 if len(involved_qubits) == 3:
                     ball1_frontier, ball2_frontier, ball3_frontier = involved_qubits
-                    # print("GHZ frontiers:",ball1_frontier, ball2_frontier, ball3_frontier)
-                    # print("GHZ neighbors_ball:",neighbors_ball1, neighbors_ball2, neighbors_ball3)
-
-                    # Check if the frontier balls are neighbors to the boxes and if action is possible
-                    # 检查逻辑比特是否位于 EPR 对两端的物理邻居中
                     if (
                         # 情况 1: 1->1, 2->2, 3->3
                         (ball1_frontier in neighbors_ball1 and ball2_frontier in neighbors_ball2 and ball3_frontier in neighbors_ball3) or 
@@ -970,95 +903,12 @@ class SystemStateClass():
                         # 情况 6: 1->3, 2->2, 3->1
                         (ball1_frontier in neighbors_ball3 and ball2_frontier in neighbors_ball2 and ball3_frontier in neighbors_ball1)
                     ):
+                    ## 这个判断没有筛选完全
                         # Perform the tele-gate action and append link to matching
                         self.perform_action('REMOTE_TOFFOLI', link) 
-                        cur_reward += Constants.REWARD_SCORE
+                        cur_reward += Constants.REWARD_SCORE_TOFFOLI
                         matching.append(link)
                         break
-
-
-            # # Iterate over the frontier
-            # for (ball1_frontier, ball2_frontier, _) in self.frontier:
-            #     # Check if the frontier balls are neighbors to the boxes and if action is possible
-            #     # do not check whether the action is possible between the boxes of the frontier's balls
-            #     if ((ball1_frontier in neighbors_ball1 and ball2_frontier in neighbors_ball2) or
-            #     (ball1_frontier in neighbors_ball2 and ball2_frontier in neighbors_ball1)):
-            #         # Perform the tele-gate action and append link to matching
-            #         self.perform_action('tele-gate', link) 
-            #         cur_reward += Constants.REWARD_SCORE
-            #         matching.append(link)
-            #         break
-
-        # # 这边GHZ的执行还需要修改
-        # for ghz_id in list(self.qm.GHZ_triplets.keys()):
-        #     # NOTE:三元门这边通过消耗GHZ是不是可以直接去掉?
-        #     # NOTE:看上面处理Telegate的逻辑 然后看怎么修改
-
-        #     # 获取 GHZ 连接的三个物理节点
-        #     boxes = self.qm.GHZ_triplets[ghz_id] # [box1, box2, box3]
-            
-        #     # 获取这三个物理节点附近的所有逻辑比特
-        #     # 逻辑：只要逻辑比特在 GHZ 节点的邻居（或者就是 GHZ 节点本身，取决于你的隐形传态模型）
-        #     # 这里假设模型是：GHZ 节点本身不存数据，而是作为通信端口连接邻居的数据
-        #     neighbor_balls_sets = []
-        #     for box in boxes:
-        #         # 获取该 box 所有物理邻居上的逻辑比特
-        #         n_balls = set()
-        #         for neighbor in self.G.neighbors(box):
-        #             if self.G.edges.get((box, neighbor), {}).get('label') != 'quantum':
-        #                 b = self.qm.get_ball(neighbor)
-        #                 if b is not None and isinstance(b, int): # 确保是逻辑比特
-        #                     n_balls.add(b)
-        #         neighbor_balls_sets.append(n_balls)
-            
-        #     # neighbor_balls_sets 结构: [{球A, 球B...}, {球C...}, {球D...}] 对应 GHZ 的三个脚
-            
-
-        #     # 遍历 Frontier 寻找匹配的 Toffoli 门
-        #     for gate_info in self.frontier:
-        #         involved_qubits = gate_info[:-1] # 去掉 layer
-                
-        #         # 只处理 Toffoli 门 (3比特)
-        #         if len(involved_qubits) == 3:
-        #             # 检查这 3 个逻辑比特是否分别位于 GHZ 的三个不同“脚”的邻域内
-        #             # 这是一个排列组合问题，因为 GHZ 是对称资源（简化假设），只要一一对应即可
-                    
-        #             # 生成 involved_qubits 的所有排列，看是否能匹配 [set1, set2, set3]
-        #             match_found = False
-        #             for p in itertools.permutations(involved_qubits):
-        #                 if (p[0] in neighbor_balls_sets[0] and 
-        #                     p[1] in neighbor_balls_sets[1] and 
-        #                     p[2] in neighbor_balls_sets[2]):
-        #                     match_found = True
-        #                     break
-                    
-        #             if match_found:
-        #                 # --- 执行 Tele-Toffoli ---
-        #                 print(f"******* WE TELE-TOFFOLI!! {involved_qubits} using {ghz_id} *******")
-                        
-        #                 # 1. 移除 DAG 节点
-        #                 # 注意：gate_info 包含 layer，remove_node 需要适配你的实现
-        #                 self.my_DAG.remove_node(gate_info) 
-                        
-        #                 # 2. 消耗 GHZ 资源
-        #                 self.qm.destroy_GHZ_triplet(ghz_id)
-                        
-        #                 # 3. 设置冷却时间 (Cooldown)
-        #                 # 让 GHZ 的三个物理节点，以及涉及的三个逻辑比特所在的节点都进入冷却
-        #                 max_cd = 0
-        #                 # 简单的冷却策略：所有相关节点都设为 COOLDOWN_TELE_GATE
-        #                 for box in boxes:
-        #                     self.G.nodes[box]['weight'] = Constants.COOLDOWN_TELE_GATE
-                        
-        #                 # 4. 奖励与记录
-        #                 cur_reward += Constants.REWARD_SCORE * 2 # Toffoli 奖励更高
-        #                 # matching.append(...) # GHZ 比较特殊，如果 matching 仅用于画图，可以存个特殊的 tuple
-                        
-        #                 # 5. 更新 Frontier
-        #                 self.update_frontier()
-                        
-        #                 # 既然消耗了这个 GHZ，跳出内层循环，去处理下一个 GHZ
-        #                 break 
 
         return matching, cur_reward
 
