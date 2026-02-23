@@ -304,7 +304,7 @@ class QubitMappingClass():
 # === 新增：生成 GHZ 态 ===
     def generate_GHZ_triplet(self, box1, box2, box3):
         if len(self.GHZ_pool) == 0:
-            raise Exception("No more GHZ IDs available.")
+            return None
         # 简单的验证：确保这三个位置没有被占用，或者是通过融合EPR生成的（具体逻辑取决于你的物理设定）
         # 这里假设直接在三个空位或者特定条件下生成
         

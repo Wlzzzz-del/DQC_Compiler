@@ -56,11 +56,6 @@ class QuantumEvnironment():
         # print("At the beginning, state is: ", self.state)
 
         self.mask = np.array(self.get_mask())
-        # print("DEBUG：在这边先验证初始化后的state和mask维度是否一致：")
-        # print("State_shape:",self.state.shape)
-        # print("理想的state_size:",self.state_size)
-        # print("Mask_shape:",self.mask.shape)
-    
 
     #the functions below (except for RL_step will need to be modified to simulate distributed quantum circuits)
         
