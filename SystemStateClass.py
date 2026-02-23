@@ -886,6 +886,7 @@ class SystemStateClass():
             neighbors_ball2 = set(self.qm.get_ghz_ball(neighbor) for neighbor in self.G.neighbors(box2) if  self.G.edges[(box2, neighbor)].get('label') != 'quantum') #changed here!!!
             neighbors_ball3 = set(self.qm.get_ghz_ball(neighbor) for neighbor in self.G.neighbors(box3) if  self.G.edges[(box3, neighbor)].get('label') != 'quantum') #changed here!!!
             for gate_info in self.frontier:
+                # 提取涉及的逻辑比特 (去掉最后一个元素 layer)
                 involved_qubits = gate_info[:-1]
                 if len(involved_qubits) == 3:
                     ball1_frontier, ball2_frontier, ball3_frontier = involved_qubits

@@ -30,7 +30,7 @@ class Base_Agent(object):
         self.debug_mode = config.debug_mode
         # if self.debug_mode: self.tensorboard = SummaryWriter()
         self.config = config
-        self.set_random_seeds(config.seed)
+        # self.set_random_seeds(config.seed)
         self.environment = config.environment
         self.environment_title = self.get_environment_title()
         self.action_types = "DISCRETE" if self.environment.action_space.dtype == np.int64 else "CONTINUOUS"
@@ -171,7 +171,7 @@ class Base_Agent(object):
 
     def reset_game(self):
         """Resets the game information so we are ready to play a new episode"""
-        self.environment.seed(self.config.seed)
+        self.environment.seed(7)
         self.state, self.mask = self.environment.reset()
         self.next_state = None
         self.next_mask = None
