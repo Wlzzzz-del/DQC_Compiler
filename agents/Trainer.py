@@ -128,20 +128,8 @@ class Trainer(object):
             max_rolling_score = np.max(rolling_scores) if len(rolling_scores) > 0 else 0
             # episodes_count: 训练的总回合数
             episodes_count = len(rolling_scores)
-            # inverted_max: 原始代码逻辑中的负最大值 (通常用于最小化问题的记录)
             inverted_max_rolling = -1 * max_rolling_score
             
-            # 2. 记录到 WandB
-            # 建议加上 agent_name 前缀，防止不同 agent 的曲线混在一起
-            # self.wandb_runner.log({
-            #     f"{agent_name}/max_game_score": max_game_score,
-            #     f"{agent_name}/max_rolling_score": max_rolling_score,
-            #     f"{agent_name}/episodes_count": episodes_count,
-            #     f"{agent_name}/inverted_max_rolling": inverted_max_rolling,
-            #     f"{agent_name}/time_taken": time_taken,
-            #     "agent_round": agent_round, # 用于对齐横坐标
-            #     "run_id": run               # 当前是第几次 run
-            # })
             agent_results.append([game_scores, rolling_scores, len(rolling_scores), -1 * max(rolling_scores), time_taken])
             if self.config.visualise_individual_results:
                 self.visualise_overall_agent_results([rolling_scores], agent_name, show_each_run=True)
@@ -315,5 +303,3 @@ class Trainer(object):
 
         if save_image_path: plt.savefig(save_image_path) #, bbox_inches="tight")
         if show_image: plt.show()
-
-        # ax.imshow(z, aspect="auto")
