@@ -21,7 +21,7 @@ class DAGClass():
         else:
             self.DAG = self.create_random_DAG(Constants.NUMQ, Constants.NUMG)# number of Qubits and Number of Gates
 
-        self.tofoli_gate_prob = 0.3
+        self.tofoli_gate_prob = Constants.TOFOLI_GATE_PROB
         #self.DAG = self.create_DAG()
         self.topo_order = self.compute_topo_order()
         self.numGates = len(self.topo_order)  #initial number of gates

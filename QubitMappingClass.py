@@ -73,6 +73,11 @@ class QubitMappingClass():
         if ball not in self.ball_to_box:
             raise Exception(f"No box found for ball {ball}.")
         return self.ball_to_box[ball]
+    
+    def get_ghz_box(self, ball):
+        if ball not in self.GHZ_ball_to_box:
+            raise Exception(f"No box found for GHZ ball {ball}.")
+        return self.GHZ_ball_to_box[ball]
 
     def get_ball(self, box):
         # 获得 box 对应的 ball
