@@ -5,7 +5,7 @@ class Constants:
 
     COOLDOWN_SWAP = 3
     COOLDOWN_GENERATE = 5
-    COOLDOWN_GHZGENERATE = 0
+    COOLDOWN_GHZGENERATE = 5
     COOLDOWN_SCORE = 1
     COOLDOWN_TELE_GATE = 5
     COOLDOWN_TELE_QUBIT = 5
@@ -18,8 +18,8 @@ class Constants:
     REWARD_SCORE = 500  
     REWARD_SCORE_TOFFOLI = 600  
 
-    NUMQ = 18  # number of qubits for the random dag/circuit
-    NUMG = 30  # number of gates for the random dag/circuit
+    NUMQ = 10  # number of qubits for the random dag/circuit
+    NUMG = 10  # number of gates for the random dag/circuit
 
     # 对于空DAG的奖励
     REWARD_EMPTY_DAG = 3000 
@@ -36,12 +36,13 @@ class Constants:
     # 训练1: 三个异构QPU
     # IF_ENABLE_TOFFOLIOS = False
     # result_path = "running_result/run_on_threeqpu/"
-    QPU_Type = ["Guadalupe","PenguinV3","PenguinV4"] # ...
+    # QPU_Type = ["Guadalupe","PenguinV3","PenguinV4"] # ...
 
     # 注释上面并启用下面的则正常运行
     # 训练2: 三个异构QPU
-    # QPU_Type = ["Guadalupe","Guadalupe"] # ...
+    QPU_Type = ["Guadalupe","Guadalupe","Guadalupe"] # ...
     IF_ENABLE_TOFFOLIOS = True
-    result_path = "running_result/test"
+    result_path = "running_result/2qpu"
     USE_DEC_DEDLINE = False
     USE_DSF_MAPPING = False
+    TOFOLI_GATE_PROB = 0.1

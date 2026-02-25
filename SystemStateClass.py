@@ -852,6 +852,8 @@ class SystemStateClass():
                 ball1_frontier, ball2_frontier,ball3_frontier = involved_qubits
                 if{ball1_frontier, ball2_frontier, ball3_frontier} == {three_balls[0], three_balls[1], three_balls[2]}:
                     self.perform_action("SCORE_TOFFOLI",[link1,link2])
+                    cur_reward += Constants.REWARD_SCORE_TOFFOLI
+                    matching.append((link1,link2))
         # Separate loop to iterate over EPR pairs for tele-gate action
         # 遍历所有EPR pairs
         for ball in list(self.qm.EPR_pairs.keys()):
@@ -933,6 +935,74 @@ class SystemStateClass():
 
         return path_length, epr_links_used
 
+    def calculate_distance_between_balls(self, ball1, ball2, ball3, temp_G):
+        # 计算连接三个GHZ节点所在box的最小网络成本（斯坦纳树）
+        box1 = self.qm.get_ghz_box(ball1)
+        box2 = self.qm.get_ghz_box(ball2)
+        box3 = self.qm.get_ghz_box(ball3)
+        
+        epr_links_used = []
+        terminal_nodes = [box1, box2, box3]
+
+        try:
+            # 检查这三个节点是否连通（如果不连通则直接抛出异常或进入except）
+            if not (nx.has_path(temp_G, box1, box2) and nx.has_path(temp_G, box1, box3)):
+                raise nx.NetworkXNoPath
+            
+            # 使用斯坦纳树近似算法找到连接这三个节点的最小权重树
+            # 返回的是一个包含了所需节点和边的 NetworkX 子图 (Graph 对象)
+            steiner_t = nx.approximation.steiner_tree(temp_G, terminal_nodes, weight='weight')
+            
+            # 计算这棵树的总权重（即连接三个点的总距离）
+            path_length = sum(data.get('weight', 1) for u, v, data in steiner_t.edges(data=True))
+            
+            # 遍历这棵树的所有边，寻找虚拟的EPR链接
+            for u, v, data in steiner_t.edges(data=True):
+                # 兼容原始图中边的属性
+                if data.get('virtual', False) == True:
+                    epr_links_used.append((u, v))
+                    
+        except nx.NetworkXNoPath:
+            # 如果这三个节点在网络中无法完全连通
+            path_length = float('inf')
+            epr_links_used = []
+
+        return path_length, epr_links_used
+
+    def calculate_distance_between_three_balls(self, ball1, ball2, ball3, temp_G):
+        # 计算连接三个GHZ节点所在box的最小网络成本（斯坦纳树）
+        box1 = self.qm.get_ghz_box(ball1)
+        box2 = self.qm.get_ghz_box(ball2)
+        box3 = self.qm.get_ghz_box(ball3)
+        
+        epr_links_used = []
+        terminal_nodes = [box1, box2, box3]
+
+        try:
+            # 检查这三个节点是否连通（如果不连通则直接抛出异常或进入except）
+            if not (nx.has_path(temp_G, box1, box2) and nx.has_path(temp_G, box1, box3)):
+                raise nx.NetworkXNoPath
+            
+            # 使用斯坦纳树近似算法找到连接这三个节点的最小权重树
+            # 返回的是一个包含了所需节点和边的 NetworkX 子图 (Graph 对象)
+            steiner_t = nx.approximation.steiner_tree(temp_G, terminal_nodes, weight='weight')
+            
+            # 计算这棵树的总权重（即连接三个点的总距离）
+            path_length = sum(data.get('weight', 1) for u, v, data in steiner_t.edges(data=True))
+            
+            # 遍历这棵树的所有边，寻找虚拟的EPR链接
+            for u, v, data in steiner_t.edges(data=True):
+                # 兼容原始图中边的属性
+                if data.get('virtual', False) == True:
+                    epr_links_used.append((u, v))
+                    
+        except nx.NetworkXNoPath:
+            # 如果这三个节点在网络中无法完全连通
+            path_length = float('inf')
+            epr_links_used = []
+
+        return path_length, epr_links_used
+
 
    
 
@@ -959,45 +1029,104 @@ class SystemStateClass():
             elif (temp_G.edges[edge]['label'] == "quantum"):
                 temp_G.edges[edge]['virtual'] = True
                 temp_G.edges[edge]['weight'] = Constants.DISTANCE_BETWEEN_EPR # from quantum reduce it temporarily to 1 since we have an entanglement there, remember to increase again when this entanglement is used
-            
+
+        # add ghz virtual links
+        # for ghz_id, (box1, box2, box3) in self.qm.GHZ_triplets.items():
+        #     edge = (box1,box2,box3)
+        #     # temp_G.edges[edge]# debbugging: see if the edge exist
+        #     if edge not in self.G.edges:
+                    # temp_G.add_edge(edge, weight = Constants.DISTANCE_BETWEEN_EPR, label="virtual", virtual=True)
+            # NOTE: GHZ的边是三元边，之前的代码没有正确处理三元边的添加和属性设置，这里需要特别注意
+            # elif (temp_G.edges[edge]['label'] == "ghz"):
+            #     temp_G.edges[edge]['virtual'] = True
+            #     temp_G.edges[edge]['weight'] = Constants.DISTANCE_BETWEEN_EPR # from quantum reduce it temporarily to 1 since we have an entanglement there, remember to increase again when this entanglement is used
+
         # Iterate over the frontier to calculate distances
         # print("FRONTIER:", self.frontier)
+        # for tmp in self.frontier:
+        #     if(len(tmp)==2):# EPR的情况
+        #         ball1, ball2 = tmp[0], tmp[1]
+        #         distance, epr_links_used = self.calculate_distance_between_balls(ball1, ball2, temp_G)
+        #         distance_metric += distance
+        #         # Remove used EPR links from temp_G
+        #         for link in epr_links_used:
+        #             if link not in self.G.edges:
+        #                 temp_G.remove_edge(*link)
+        #             elif (temp_G.edges[link]['label'] == "quantum"):
+        #                 temp_G.edges[link]['weight'] = Constants.DISTANCE_QUANTUM_LINK # previous entanglement is used so get it back
+        #                 temp_G.edges[link]['virtual'] = False
+
+        #     else:# TOFOLLIO的情况
+        #         ball1, ball2, ball3 = tmp[0], tmp[1], tmp[2]
+        #         distance1, epr_links_used1 = self.calculate_distance_between_balls(ball1, ball2, temp_G)
+        #         distance2, epr_links_used2 = self.calculate_distance_between_balls(ball2, ball3, temp_G)
+        #         distance3, epr_links_used3 = self.calculate_distance_between_balls(ball1, ball3, temp_G)
+        #         distances_data = [(distance1, epr_links_used1),(distance2, epr_links_used2),(distance3, epr_links_used3)]
+        #         distances_data.sort(key=lambda x: x[0], reverse=True)
+        #         top1_epr_links = distances_data[0][1]
+        #         top2_epr_links = distances_data[1][1]
+        #         eprlinks = [top1_epr_links,top2_epr_links]
+        #         distance_metric += distances_data[0][0]
+        #         distance_metric += distances_data[1][0]
+
+        #         # Remove used EPR links from temp_G
+        #         for epr in eprlinks:
+        #             for link in epr:
+        #                 if link not in self.G.edges:
+        #                     # NOTE:这边报错
+        #                     temp_G.remove_edge(*link)
+        #                 elif (temp_G.edges[link]['label'] == "ghz"):
+        #                     temp_G.edges[link]['weight'] = Constants.DISTANCE_QUANTUM_LINK # previous entanglement is used so get it back
+        #                     temp_G.edges[link]['virtual'] = False
+        for ghz_id, (box1, box2, box3) in self.qm.GHZ_triplets.items():
+            # 1. 将三元边拆解为三条两两相连的普通边
+            ghz_edges = [(box1, box2), (box2, box3), (box1, box3)]
+            
+            # 2. 遍历这三条边，分别进行添加或属性修改
+            for u, v in ghz_edges:
+                # 使用 has_edge 可以完美避免无向图 (A, B) 和 (B, A) 顺序带来的判断错误
+                if not self.G.has_edge(u, v):
+                    # 如果原拓扑图中根本没有这条边，说明是跨越节点的纯虚拟纠缠
+                    temp_G.add_edge(u, v, weight=Constants.DISTANCE_BETWEEN_EPR, label="virtual", virtual=True)
+                
+                # 修复并激活了您原本注释掉的逻辑：处理底层已经有物理连接的情况
+                elif temp_G.has_edge(u, v) and temp_G.edges[u, v].get('label') == "ghz":
+                    temp_G.edges[u, v]['virtual'] = True
+                    # 从量子链路距离临时缩小为 EPR 纠缠距离 (通常是1)，代表此处存在可用纠缠资源
+                    temp_G.edges[u, v]['weight'] = Constants.DISTANCE_BETWEEN_EPR
+
         for tmp in self.frontier:
-            if(len(tmp)==3):# EPR的情况
+            if(len(tmp)==2):# EPR的情况
                 ball1, ball2 = tmp[0], tmp[1]
                 distance, epr_links_used = self.calculate_distance_between_balls(ball1, ball2, temp_G)
                 distance_metric += distance
                 # Remove used EPR links from temp_G
                 for link in epr_links_used:
-                    
-                    if link not in self.G.edges:
-                        temp_G.remove_edge(*link)
-                    elif (temp_G.edges[link]['label'] == "quantum"):
-                        temp_G.edges[link]['weight'] = Constants.DISTANCE_QUANTUM_LINK # previous entanglement is used so get it back
-                        temp_G.edges[link]['virtual'] = False
-            else:# TOFOLLIO的情况
+                    # 推荐使用 has_edge 替代 in 操作符，自动处理无向图 (u,v) 和 (v,u) 的问题
+                    if temp_G.has_edge(*link):
+                        if not self.G.has_edge(*link):
+                            temp_G.remove_edge(*link)
+                        elif temp_G.edges[link].get('label') == "quantum":
+                            temp_G.edges[link]['weight'] = Constants.DISTANCE_QUANTUM_LINK # previous entanglement is used so get it back
+                            temp_G.edges[link]['virtual'] = False
+
+            else:# TOFFOLI / GHZ 的情况 (3个Ball)
                 ball1, ball2, ball3 = tmp[0], tmp[1], tmp[2]
-                distance1, epr_links_used1 = self.calculate_distance_between_balls(ball1, ball2, temp_G)
-                distance2, epr_links_used2 = self.calculate_distance_between_balls(ball2, ball3, temp_G)
-                distance3, epr_links_used3 = self.calculate_distance_between_balls(ball1, ball3, temp_G)
-                distances_data = [(distance1, epr_links_used1),(distance2, epr_links_used2),(distance3, epr_links_used3)]
-                distances_data.sort(key=lambda x: x[0], reverse=True)
-                top1_epr_links = distances_data[0][1]
-                top2_epr_links = distances_data[1][1]
-                eprlinks = [top1_epr_links,top2_epr_links]
-                distance_metric += distances_data[0][0]
-                distance_metric += distances_data[1][0]
+                
+                # 直接调用新写的3点斯坦纳树寻径函数
+                distance, epr_links_used = self.calculate_distance_between_three_balls(ball1, ball2, ball3, temp_G)
+                distance_metric += distance
 
                 # Remove used EPR links from temp_G
-                for epr in eprlinks:
-                    for link in epr:
-                        if link in temp_G.edges:
-                            # NOTE:这边报错
+                for link in epr_links_used:
+                    # 修复报错：先检查 temp_G 中是否确实存在这条边，防止重复删除引发异常
+                    if temp_G.has_edge(*link):
+                        # 使用 self.G.has_edge(*link) 安全判断边是否存在于原图中
+                        if not self.G.has_edge(*link):
                             temp_G.remove_edge(*link)
-                        else:pass
-                        # if (temp_G.edges[link]['label'] == "quantum"):
-                        #     temp_G.edges[link]['weight'] = Constants.DISTANCE_QUANTUM_LINK # previous entanglement is used so get it back
-                        #     temp_G.edges[link]['virtual'] = False
+                        elif temp_G.edges[link].get('label') == "ghz":
+                            temp_G.edges[link]['weight'] = Constants.DISTANCE_QUANTUM_LINK
+                            temp_G.edges[link]['virtual'] = False
 
         return distance_metric
 
