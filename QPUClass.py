@@ -327,8 +327,8 @@ class QPUConnection():
         nodes = [i for i in range(20)]  # 20 个物理比特
         return nodes, edges
 
-q = QPUConnection()
-q.create_DQC_graph()
+# q = QPUConnection()
+# q.create_DQC_graph()
     
     # # Function to create two Guadelupe-like graphs connected with a quantum link
     # ======= Original function implement ========= 
