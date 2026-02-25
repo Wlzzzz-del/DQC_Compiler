@@ -52,7 +52,7 @@ class DQN(Base_Agent):
         action = self.exploration_strategy.perturb_action_for_exploration_purposes({"action_values": action_values,
                                                                                     "turn_off_exploration": self.turn_off_exploration,
                                                                                     "episode_number": self.episode_number})
-        self.logger.info("Q values {} -- Action chosen {}".format(action_values, action))
+        # self.logger.info("Q values {} -- Action chosen {}".format(action_values, action))
         return action
 
     def learn(self, experiences=None):

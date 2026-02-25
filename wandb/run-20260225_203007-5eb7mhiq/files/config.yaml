@@ -1,0 +1,55 @@
+_wandb:
+    value:
+        cli_version: 0.25.0
+        e:
+            pmhf3aikxxsd2ajsmhmmpplnpclkjnzk:
+                codePath: results\DistQuantum.py
+                codePathLocal: results\DistQuantum.py
+                cpu_count: 20
+                cpu_count_logical: 20
+                cudaVersion: "13.1"
+                disk:
+                    /:
+                        total: "1022463307776"
+                        used: "452909154304"
+                email: a1174547806@gmail.com
+                executable: C:\Users\lw939\AppData\Local\anaconda3\envs\DQC\python.exe
+                git:
+                    commit: 03fa94ec1dbd0f8767f0bbbe3ae9cc71460bb121
+                    remote: https://github.com/Wlzzzz-del/DQC_Compiler.git
+                gpu: NVIDIA RTX PRO 4000 Blackwell Generation Laptop GPU
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Blackwell
+                      cudaCores: 7680
+                      memoryTotal: "17094934528"
+                      name: NVIDIA RTX PRO 4000 Blackwell Generation Laptop GPU
+                      uuid: GPU-bb835b9f-94ed-3338-2431-f54cb4007649
+                host: 5CG6030MPY
+                memory:
+                    total: "33751674880"
+                os: Windows-10-10.0.26100-SP0
+                program: c:\project\DQC_Compiler\results\DistQuantum.py
+                python: CPython 3.10.19
+                root: C:\project\DQC_Compiler
+                startedAt: "2026-02-25T20:30:07.219709Z"
+                writerId: pmhf3aikxxsd2ajsmhmmpplnpclkjnzk
+        m: []
+        python_version: 3.10.19
+        t:
+            "1":
+                - 1
+                - 50
+            "2":
+                - 1
+                - 50
+            "3":
+                - 16
+            "4": 3.10.19
+            "5": 0.25.0
+            "8":
+                - 3
+            "12": 0.25.0
+            "13": windows-amd64
+feature:
+    value: state_before_normalization
