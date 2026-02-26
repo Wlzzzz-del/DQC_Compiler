@@ -60,23 +60,42 @@ def main(cfg: DictConfig):
             else:
                 setattr(config, key, value)
 
+    if Constants.Algorithm == "RL_COMPILER":
     # 4. 初始化环境 (调用 yaml 中的常量)
-    config.environment = EnvUpdater(completion_deadline=cfg.COMPLETION_DEADLINE)
+        config.environment = EnvUpdater(completion_deadline=cfg.COMPLETION_DEADLINE)
+        agent_map = {
+            "DQN": DQN,
+            # "PPO": PPO, 
+            # "DDQN": DDQN,
+            # 把您支持的 agent 类在这里注册一下
+        }
+        selected_agents = [agent_map[agent_name] for agent_name in cfg.AGENTS]
+        trainer = Trainer(config, selected_agents)
+        trainer.run_games_for_agents()
 
-    # 5. 解析要运行的智能体 (根据名字映射到实际的类)
-    agent_map = {
-        "DQN": DQN,
-        # "PPO": PPO, 
-        # "DDQN": DDQN,
-        # 把您支持的 agent 类在这里注册一下
-    }
-    
-    # 从配置中读取需要运行的 Agent 列表
-    selected_agents = [agent_map[agent_name] for agent_name in cfg.AGENTS]
+    # 对比算法
+    # https://ieeexplore.ieee.org/document/11080164
+    elif Constants.Algorithm == "ADAPT_DQC":
+        from Adapt_DQC import AdaptDQCCompiler
+        adaptdqc = AdaptDQCCompiler()
+        adaptdqc.run_compiler()
 
-    # 6. 开始训练
-    trainer = Trainer(config, selected_agents)
-    trainer.run_games_for_agents()
+    # https://github.com/anbangw/AutoComm
+    elif Constants.Algorithm == "Autocomm":
+        from Autocomm import Autocomm
+        autocomm = Autocomm()
+        autocomm.run_compiler()
+
+    elif Constants.Algorithm == "DQCM":
+        from DQCM import DQCM
+        dqc_m = DQCM()
+        dqc_m.run_compiler()
+
+    elif Constants.Algorithm == "CutQC":
+        from CutQC import CutQCAdapter
+        cutqc = CutQCAdapter()
+        cutqc.run_compiler()
+
 
 if __name__ == "__main__":
     main()

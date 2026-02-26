@@ -60,7 +60,7 @@ class DQN(Base_Agent):
                                                                                     "mask_vector" : mask2,   #mask added
                                                                                     "turn_off_exploration": self.turn_off_exploration,
                                                                                     "episode_number": self.episode_number})
-        self.logger.info("Q values {} -- Action chosen {}".format(action_values, action))
+        # self.logger.info("Q values {} -- Action chosen {}".format(action_values, action))
         if mask[0][action] <= 0:
             print("WARNING!!: best action has q value 0 or less")
         return action
