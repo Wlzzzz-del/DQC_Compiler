@@ -39,14 +39,14 @@ QPU_Type:
 IF_ENABLE_TOFFOLIOS: true
 USE_DEC_DEDLINE: false
 USE_DSF_MAPPING: false
-COMPLETION_DEADLINE: 1500
+COMPLETION_DEADLINE: 1000
 result_path: "running_result/run_on_10Q_10G_with_tofoli02"
 
 # ==========================================
 # 2. 训练与运行全局配置 (Run Configuration)
 # ==========================================
 seed: 7
-num_episodes_to_run: 10
+num_episodes_to_run: 250
 file_to_save_data_results: "results/data_and_graphs/dist_quantum_Results_Data.pkl"
 file_to_save_results_graph: "results/data_and_graphs/dist_quantum__Results_Graph.png"
 show_solution_score: True
@@ -59,7 +59,8 @@ use_GPU: true
 overwrite_existing_results_file: false
 randomise_random_seed: true
 save_model: true
-
+Algorithm: "CutQC"
+# RL_COMPILER, Adapt_DQC, Autocomm, CutQC, DQCM
 # 想要运行的智能体列表 (可以在命令行通过 AGENTS=[DQN,PPO] 动态覆盖)
 AGENTS: 
   - DQN
