@@ -29,14 +29,9 @@ def append_list_as_row(file_name, list_of_elem):
 
 class EnvUpdater(gym.Env):      #gym is an opanAI's environment generator tools. however, we doing most of it ourselves for the distributed qunatum computing game
     environment_name = "distQuantComp"
-    """
+    def __init__(self, completion_deadline, encoder): 
 
-
-    """
-
-    def __init__(self, completion_deadline): 
-
-        self.quantumEnv = QuantumEvnironment()
+        self.quantumEnv = QuantumEvnironment(encoder)
         self.state = self.quantumEnv.state   #state at the beginning decided on by the processor and DAG configurations
         self.mask = self.quantumEnv.mask   #mask at the beginning decided on by the processor and DAG configurations, value always 1 if no masking used
         
@@ -46,12 +41,8 @@ class EnvUpdater(gym.Env):      #gym is an opanAI's environment generator tools.
         
 
         self.trials = 1
-        if(Constants.USE_DEC_DEDLINE):
-            # 设置为固定的deadline
-            self.numSteps = self.quantumEnv.my_arch.deadline
-        else:
-            # 设置为异构的deadline
-            self.numSteps = completion_deadline
+        self.numSteps = self.quantumEnv.my_arch.deadline
+        self.numSteps = completion_deadline
 
         self.stepCount = 0
         self.dummy_stepCount = 0

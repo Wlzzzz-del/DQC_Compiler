@@ -6,24 +6,28 @@ import random
 import matplotlib.patches as mpatches
 import copy
 
+import torch
+import numpy as np
+from collections import defaultdict
 from QPUClass import QPUConnection
 from DAGClass import DAGClass
 from QubitMappingClass import QubitMappingClass
 from Constants import Constants
 
 import itertools
-
+from encoder import SNUH_HGNN_Encoder,TDAG_Structure2Vec,DQC_StateEncoder
 
 
 # 核心状态类
 class SystemStateClass():
     
-    def __init__(self, qpu_list, G, my_DAG, qubit_mapping):
+    def __init__(self, qpu_list, G, my_DAG, qubit_mapping,encoder):
         self.epsilon = 1
         self.G = G# QPU的图
         self.my_DAG = my_DAG# 电路执行图
         self.qm = qubit_mapping# 分布图
         self.qpu_list = qpu_list
+        self.encoder = encoder
 
         # 更新当前能直接执行的gate
         self.update_frontier()
@@ -33,6 +37,8 @@ class SystemStateClass():
         # 保存先前的指标
         self.distance_metric_prev = self.distance_metric # keep track of the previous distance to calculate the reward (the difference)
         self.cur_mask = self.calculate_mask()  # initialize the current mask
+
+        self.state_encoder = DQC_StateEncoder(c_phy=4, c_log=5, h_dim_phy=64, h_dim_log=64, out_dim=128)
 
  
     def is_action_possible(self, link):
@@ -1202,42 +1208,166 @@ class SystemStateClass():
 
     #convert from the actual state class object to the state vector as the RL agent wants it
     def convert_self_to_state_vector(self):
-        # 将真实状态矩阵转换成RLstyle格式
-        # Initialize a list with None (or a placeholder) for each possible index
-        my_list = [-1] * (self.qm.numNodes) # QPU的所有的节点数
-        # Populate the list using dictionary keys as indices
-        for key, value in self.qm.box_to_ball.items():
-            # Instead of EPR-x we now need just the number (i.e., numNodes+x as an index)
-            # Check if value is a string
-            if isinstance(value, str):
-            # Attempt to extract the number part if the format is as expected
-                prefix, num_str = value.split('-')
-                value = int(num_str) + self.my_DAG.numQubits # Convert the numerical part to an integer (max logical qubit since there does not exist such and after)
-            my_list[key] = value# 将用于EPR的QPU 记录为实际value
+        if self.encoder == "padding":
+            # Initialize a list with None (or a placeholder) for each possible index
+            my_list = [-1] * (self.qm.numNodes) # QPU的所有的节点数
+            # Populate the list using dictionary keys as indices
+            for key, value in self.qm.box_to_ball.items():
+                # Instead of EPR-x we now need just the number (i.e., numNodes+x as an index)
+                # Check if value is a string
+                if isinstance(value, str):
+                # Attempt to extract the number part if the format is as expected
+                    prefix, num_str = value.split('-')
+                    value = int(num_str) + self.my_DAG.numQubits # Convert the numerical part to an integer (max logical qubit since there does not exist such and after)
+                my_list[key] = value# 将用于EPR的QPU 记录为实际value
 
-        my_list2 = [-1] * (self.qm.numNodes) # QPU的所有的节点数
-        for key, value in self.qm.GHZ_box_to_ball.items():
-            # Instead of EPR-x we now need just the number (i.e., numNodes+x as an index)
-            # Check if value is a string
-            if isinstance(value, str):
-            # Attempt to extract the number part if the format is as expected
-                prefix, num_str = value.split('-')
-                value = int(num_str) + self.my_DAG.numQubits # Convert the numerical part to an integer (max logical qubit since there does not exist such and after)
-            my_list2[key] = value# 将用于EPR的QPU 记录为实际value
+            my_list2 = [-1] * (self.qm.numNodes) # QPU的所有的节点数
+            for key, value in self.qm.GHZ_box_to_ball.items():
+                # Instead of EPR-x we now need just the number (i.e., numNodes+x as an index)
+                # Check if value is a string
+                if isinstance(value, str):
+                # Attempt to extract the number part if the format is as expected
+                    prefix, num_str = value.split('-')
+                    value = int(num_str) + self.my_DAG.numQubits # Convert the numerical part to an integer (max logical qubit since there does not exist such and after)
+                my_list2[key] = value# 将用于EPR的QPU 记录为实际value
 
-        # 将电路图转为拓扑结构插在state vector 后面
-        single_numbers_topo_list = [element for tup in self.my_DAG.topo_order for element in tup]  #break (x,y,z) tuple inside topo_order to x,y,z (x,y qubits and z the layer)
-        #the above is needed for breaking into the state space vector
-        # print("topo_list:",single_numbers_topo_list)
-        state_vector = my_list + my_list2 + single_numbers_topo_list
-        # 3代表gate的（x,y,z),2代表mylist 和 mylist2
-        N = 2*self.qm.numNodes + 4*self.my_DAG.numGates # N is the size of a correct state vector
-        if len(state_vector) < N:
-            #print("test")
-            # 如果state size不够则拼接填充
-            state_vector.extend([-2] * (N - len(state_vector)))
-        # print("状态矩阵的大小:",len(state_vector))
-        return state_vector
+            # 将电路图转为拓扑结构插在state vector 后面
+            single_numbers_topo_list = [element for tup in self.my_DAG.topo_order for element in tup]  #break (x,y,z) tuple inside topo_order to x,y,z (x,y qubits and z the layer)
+            #the above is needed for breaking into the state space vector
+            # print("topo_list:",single_numbers_topo_list)
+            state_vector = my_list + my_list2 + single_numbers_topo_list
+            # 3代表gate的（x,y,z),2代表mylist 和 mylist2
+            N = 2*self.qm.numNodes + 4*self.my_DAG.numGates # N is the size of a correct state vector
+            if len(state_vector) < N:
+                #print("test")
+                # 如果state size不够则拼接填充
+                state_vector.extend([-2] * (N - len(state_vector)))
+            # print("状态矩阵的大小:",len(state_vector))
+            return state_vector
+
+        elif self.encoder == "embedding":
+
+            # ==========================================
+            # 1. 动态构建 SNUH (物理超图) 
+            # ==========================================
+            num_phy_nodes = self.qm.numNodes
+            X_phy = np.zeros((num_phy_nodes, 4), dtype=np.float32) # [Idle, EPR, GHZ, Cooldown]
+            
+            # 用于收集超边的节点-超边对 (Row 0: Node ID, Row 1: Hyperedge ID)
+            hyperedge_nodes = []
+            hyperedge_ids = []
+            current_he_id = 0
+
+            # 1.1 提取物理拓扑 (如果有 self.qm.edges，表示底层的物理连线)
+            if hasattr(self.qm, 'edges'):
+                for (u, v) in self.qm.edges:
+                    hyperedge_nodes.extend([u, v])
+                    hyperedge_ids.extend([current_he_id, current_he_id])
+                    current_he_id += 1
+
+            # 1.2 提取 EPR 节点特征与超边关联
+            epr_groups = defaultdict(list)
+            for node, value in self.qm.box_to_ball.items():
+                if isinstance(value, str) and value.startswith('EPR'):
+                    X_phy[node][1] = 1.0  # 标记为 EPR 节点
+                    epr_groups[value].append(node)
+            
+            # 将每一对 EPR 连成一条 2-Uniform 超边
+            for epr_id, nodes in epr_groups.items():
+                for n in nodes:
+                    hyperedge_nodes.append(n)
+                    hyperedge_ids.append(current_he_id)
+                current_he_id += 1
+
+            # 1.3 提取 GHZ 节点特征与超边关联
+            ghz_groups = defaultdict(list)
+            for node, value in self.qm.GHZ_box_to_ball.items():
+                if isinstance(value, str) and value.startswith('GHZ'):
+                    X_phy[node][2] = 1.0  # 标记为 GHZ 节点
+                    ghz_groups[value].append(node)
+            
+            # 将每一组 GHZ 连成一条 3-Uniform 超边 (或者高阶超边)
+            for ghz_id, nodes in ghz_groups.items():
+                for n in nodes:
+                    hyperedge_nodes.append(n)
+                    hyperedge_ids.append(current_he_id)
+                current_he_id += 1
+
+            # 1.4 计算剩余空闲节点和 Cooldown (如果没有 cooldown 属性则默认为0)
+            for node in range(num_phy_nodes):
+                cooldown = self.qm.cooldowns[node] if hasattr(self.qm, 'cooldowns') else 0.0
+                X_phy[node][3] = float(cooldown)
+                if X_phy[node][1] == 0.0 and X_phy[node][2] == 0.0 and cooldown == 0:
+                    X_phy[node][0] = 1.0  # 完全空闲
+
+            hyperedge_index = np.array([hyperedge_nodes, hyperedge_ids], dtype=np.int64)
+
+            # ==========================================
+            # 2. 动态构建 TDAG (量子电路有向无环图)
+            # ==========================================
+            # 根据你原本的逻辑，topo_order 里面是 tuple，包含门的作用量子比特和层级等信息
+            X_log = []
+            tdag_edges_src = []
+            tdag_edges_dst = []
+            
+            # 用于记录每个逻辑比特上最后一次操作的 Gate ID，用来推导前后依赖关系 (Fan-in/Fan-out)
+            last_gate_on_qubit = {}
+            gate_id = 0
+
+            for gate_tuple in self.my_DAG.topo_order:
+                # 假设 gate_tuple 前面是起作用的量子比特，最后一位是门的层级或其它标志
+                # 比如 (q1, q2, layer) 或 (q1, q2, q3, layer)
+                qubits_involved = gate_tuple[:-1] 
+                
+                # 特征工程：我们把涉及的量子比特 ID 提取出来作为特征
+                # 假设最大支持 3 比特门，不足的地方用 -1 补齐
+                q1 = qubits_involved[0] if len(qubits_involved) > 0 else -1
+                q2 = qubits_involved[1] if len(qubits_involved) > 1 else -1
+                q3 = qubits_involved[2] if len(qubits_involved) > 2 else -1
+                
+                is_ccx = 1.0 if len(qubits_involved) == 3 else 0.0
+                is_cx = 1.0 if len(qubits_involved) == 2 else 0.0
+
+                X_log.append([is_cx, is_ccx, float(q1), float(q2), float(q3)])
+
+                # 根据量子线路依赖构建有向边 (前驱 -> 后继)
+                for q in qubits_involved:
+                    if q in last_gate_on_qubit:
+                        tdag_edges_src.append(last_gate_on_qubit[q])
+                        tdag_edges_dst.append(gate_id)
+                    last_gate_on_qubit[q] = gate_id  # 更新该比特上最后执行的门
+
+                gate_id += 1
+
+            X_log = np.array(X_log, dtype=np.float32) if len(X_log) > 0 else np.zeros((1, 5), dtype=np.float32)
+            edge_index = np.array([tdag_edges_src, tdag_edges_dst], dtype=np.int64) if len(tdag_edges_src) > 0 else np.empty((2, 0), dtype=np.int64)
+
+            # ==========================================
+            # 3. 转换为 Tensor 并执行前向传播 (Forward Pass)
+            # ==========================================
+            # 将 NumPy 数组转为 PyTorch Tensor，并加上 batch 维度 (unsqueeze(0) 表示 batch_size=1)
+            # 或直接传给模型，取决于你的 PyTorch 模型是否需要 batch 维度，这里假设按 PyG 常用扁平输入
+            snuh_data = {
+                'x': torch.tensor(X_phy, dtype=torch.float32),
+                'edge_index': torch.tensor(hyperedge_index, dtype=torch.long)
+            }
+            tdag_data = {
+                'x': torch.tensor(X_log, dtype=torch.float32),
+                'edge_index': torch.tensor(edge_index, dtype=torch.long)
+            }
+
+            # 确保你已经在环境初始化时定义了 self.state_encoder = DQC_StateEncoder(...)
+            if not hasattr(self, 'state_encoder'):
+                raise RuntimeError("self.state_encoder (DQC_StateEncoder) 未初始化！请在环境的 __init__ 中实例化它。")
+
+            # 切换为评估模式并切断梯度追踪 (因为此时环境只是在生成状态向量)
+            self.state_encoder.eval()
+            with torch.no_grad():
+                # 送入双图编码器，得到固定长度的 Embedding Vector
+                state_embedding = self.state_encoder(snuh_data, tdag_data)
+            
+            # 返回 1D 的 numpy array 给强化学习框架 (如 Gym/RLlib 等)
+            return state_embedding.squeeze().cpu().numpy()
 
 
 

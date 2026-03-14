@@ -225,85 +225,85 @@ class QubitMappingClass():
         c_dsf = self._calculate_dsf_cost(mapping)
         return c_comm + self.weights['lambda'] * c_dsf
 
-    def DSF_mapping(self, max_iter=200, patience=50):
-        """
-        执行 DSF-TAP 算法搜索最优初始映射。
-        搜索结束后，会自动调用 self._apply_mapping 更新类状态。
-        """
-        # 1. 从当前状态（可能是随机的）开始
-        # 提取当前的逻辑->物理映射
-        current_mapping = copy.deepcopy(self.ball_to_box)
-        # 过滤掉 EPR 对 (key 是 str 'EPR-x')，只保留逻辑比特 (key 是 int)
-        current_mapping = {k: v for k, v in current_mapping.items() if isinstance(k, int)}
+    # def DSF_mapping(self, max_iter=200, patience=50):
+    #     """
+    #     执行 DSF-TAP 算法搜索最优初始映射。
+    #     搜索结束后，会自动调用 self._apply_mapping 更新类状态。
+    #     """
+    #     # 1. 从当前状态（可能是随机的）开始
+    #     # 提取当前的逻辑->物理映射
+    #     current_mapping = copy.deepcopy(self.ball_to_box)
+    #     # 过滤掉 EPR 对 (key 是 str 'EPR-x')，只保留逻辑比特 (key 是 int)
+    #     current_mapping = {k: v for k, v in current_mapping.items() if isinstance(k, int)}
         
-        # 如果当前没有映射，生成随机映射
-        if not current_mapping:
-            current_mapping = self.generate_random_initial_mapping()
-            # print("random mapping:",current_mapping)
+    #     # 如果当前没有映射，生成随机映射
+    #     if not current_mapping:
+    #         current_mapping = self.generate_random_initial_mapping()
+    #         # print("random mapping:",current_mapping)
 
-        # 2. 计算初始 Cost
-        current_cost = self._get_total_cost(current_mapping)
-        best_mapping = copy.deepcopy(current_mapping)
-        best_cost = current_cost
+    #     # 2. 计算初始 Cost
+    #     current_cost = self._get_total_cost(current_mapping)
+    #     best_mapping = copy.deepcopy(current_mapping)
+    #     best_cost = current_cost
         
-        no_improve = 0
-        loops_time = 0
+    #     no_improve = 0
+    #     loops_time = 0
         
-        # 3. 爬山搜索 loop
-        for i in range(max_iter):
-            loops_time += 1# 计数器
-            if no_improve >= patience:
-                break
+    #     # 3. 爬山搜索 loop
+    #     for i in range(max_iter):
+    #         loops_time += 1# 计数器
+    #         if no_improve >= patience:
+    #             break
             
-            candidate_mapping = current_mapping.copy()
-            r = random.random()
+    #         candidate_mapping = current_mapping.copy()
+    #         r = random.random()
             
-            # --- 动作选择: Move (50%) vs Swap (50%) ---
-            if r < 0.5:
-                # Move: 将一个逻辑比特移到空闲物理节点
-                occupied = set(candidate_mapping.values())
-                all_nodes = set(range(self.numNodes))
-                free_nodes = list(all_nodes - occupied)
+    #         # --- 动作选择: Move (50%) vs Swap (50%) ---
+    #         if r < 0.5:
+    #             # Move: 将一个逻辑比特移到空闲物理节点
+    #             occupied = set(candidate_mapping.values())
+    #             all_nodes = set(range(self.numNodes))
+    #             free_nodes = list(all_nodes - occupied)
                 
-                if free_nodes:
-                    l_q = random.choice(list(candidate_mapping.keys()))
-                    p_target = random.choice(free_nodes)
-                    candidate_mapping[l_q] = p_target
-                else:
-                    # 满载，无法移动，跳过
-                    continue
-            else:
-                # Swap: 交换两个逻辑比特的位置
-                keys = list(candidate_mapping.keys())
-                if len(keys) >= 2:
-                    qa, qb = random.sample(keys, 2)
-                    candidate_mapping[qa], candidate_mapping[qb] = candidate_mapping[qb], candidate_mapping[qa]
-                else:
-                    continue
+    #             if free_nodes:
+    #                 l_q = random.choice(list(candidate_mapping.keys()))
+    #                 p_target = random.choice(free_nodes)
+    #                 candidate_mapping[l_q] = p_target
+    #             else:
+    #                 # 满载，无法移动，跳过
+    #                 continue
+    #         else:
+    #             # Swap: 交换两个逻辑比特的位置
+    #             keys = list(candidate_mapping.keys())
+    #             if len(keys) >= 2:
+    #                 qa, qb = random.sample(keys, 2)
+    #                 candidate_mapping[qa], candidate_mapping[qb] = candidate_mapping[qb], candidate_mapping[qa]
+    #             else:
+    #                 continue
 
-            # 4. 评估新 Cost
-            new_cost = self._get_total_cost(candidate_mapping)
-            delta = new_cost - current_cost
-            # print("Delta:",delta)
+    #         # 4. 评估新 Cost
+    #         new_cost = self._get_total_cost(candidate_mapping)
+    #         delta = new_cost - current_cost
+    #         # print("Delta:",delta)
             
-            # 5. 贪心接受 (Greedy Accept)
-            if delta < 0:
-                current_mapping = candidate_mapping
-                current_cost = new_cost
+    #         # 5. 贪心接受 (Greedy Accept)
+    #         if delta < 0:
+    #             current_mapping = candidate_mapping
+    #             current_cost = new_cost
                 
-                if current_cost < best_cost:
-                    best_cost = current_cost
-                    best_mapping = copy.deepcopy(current_mapping)
-                    no_improve = 0
-            else:
-                no_improve += 1
+    #             if current_cost < best_cost:
+    #                 best_cost = current_cost
+    #                 best_mapping = copy.deepcopy(current_mapping)
+    #                 no_improve = 0
+    #         else:
+    #             no_improve += 1
         
-        print(f"Running: ",loops_time," times and DSF_mapping finished. Best Cost: {best_cost:.4f}")
-        print("BEST MAPPING:",best_mapping)
+    #     print(f"Running: ",loops_time," times and DSF_mapping finished. Best Cost: {best_cost:.4f}")
+    #     print("BEST MAPPING:",best_mapping)
         
-        # 6. 将最优结果应用回类本身
-        # self._apply_mapping(best_mapping)
-        return best_mapping
+    #     # 6. 将最优结果应用回类本身
+    #     # self._apply_mapping(best_mapping)
+    #     return best_mapping
 
 
 # === 新增：生成 GHZ 态 ===

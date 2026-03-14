@@ -136,6 +136,7 @@ class Base_Agent(object):
         except: pass
 
         logger = logging.getLogger(__name__)
+        logger.propagate = False
         logger.setLevel(logging.INFO)
         # create a file handler
         handler = logging.FileHandler(filename)

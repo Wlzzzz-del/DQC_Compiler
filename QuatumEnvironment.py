@@ -19,8 +19,8 @@ from SystemStateClass import SystemStateClass
 
 class QuantumEvnironment():
     
-    def __init__(self):
-
+    def __init__(self,encoder):
+        self.encoder = encoder
         #Initialize the DQC architecture
         self.my_arch = QPUConnection() # 所有QPU放在一个类里面
         #print(my_arch.G)
@@ -46,7 +46,10 @@ class QuantumEvnironment():
         self.action_size = self.generate_action_size()        
         # 计算状态空间的size
         # 2是因为EPR+GHZ的num node 状态，4是因为有toffoli三元门
-        self.state_size = 2*self.physical_qubits +  4*self.dag_vals  # num of physical qubits will serve as state size with values representing the identity of present logical qubit, the cooldown should be learned in that implementation
+        if Constants.USE_STATE_COMPRESSION:
+            self.state_size = 2*self.physical_qubits +  4*self.dag_vals  # num of physical qubits will serve as state size with values representing the identity of present logical qubit, the cooldown should be learned in that implementation
+        else:
+            self.state_size = 2*self.physical_qubits +  4*self.dag_vals  # num of physical qubits will serve as state size with values representing the identity of present logical qubit, the cooldown should be learned in that implementation
 
         # 产生初始的状态
         self.state_object = self.generate_initial_state_object() 
@@ -70,7 +73,7 @@ class QuantumEvnironment():
         qm = QubitMappingClass(self.my_arch.qpu_list, self.my_DAG, self.my_arch.numNodes, self.my_DAG.numQubits, self.max_epr_pairs,self.max_ghz_pairs, initial_mapping)
 
         # 根据qm描述系统状态,SystemStateClass类为主要接收action和输出state的类
-        init_state_object = SystemStateClass(self.my_arch.qpu_list,self.my_arch.G, self.my_DAG, qm)# 状态类 可以转化成vector
+        init_state_object = SystemStateClass(self.my_arch.qpu_list,self.my_arch.G, self.my_DAG, qm,self.encoder)# 状态类 可以转化成vector
 
         return init_state_object
     
