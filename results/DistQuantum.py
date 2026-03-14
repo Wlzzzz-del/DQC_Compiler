@@ -62,12 +62,11 @@ def main(cfg: DictConfig):
 
     if Constants.Algorithm == "RL_COMPILER":
     # 4. 初始化环境 (调用 yaml 中的常量)
-        config.environment = EnvUpdater(completion_deadline=cfg.COMPLETION_DEADLINE)
+        config.environment = EnvUpdater(completion_deadline=cfg.COMPLETION_DEADLINE,encoder = Constants.USE_STATE_COMPRESSION)
         agent_map = {
-            "DQN": DQN,
+            # "DQN": DQN,
             # "PPO": PPO, 
-            # "DDQN": DDQN,
-            # 把您支持的 agent 类在这里注册一下
+            "DDQN": DDQN,
         }
         selected_agents = [agent_map[agent_name] for agent_name in cfg.AGENTS]
         trainer = Trainer(config, selected_agents)

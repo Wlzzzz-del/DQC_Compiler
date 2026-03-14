@@ -17,18 +17,18 @@ COOLDOWN_TELE_TOFFOLI: 5
 ENTANGLEMENT_PROBABILITY: 0.95 
 
 REWARD_STOP: -2 
-REWARD_FOR_SWAP: 0
-REWARD_SCORE: 50  
-REWARD_SCORE_TOFFOLI: 60 
-REWARD_EMPTY_DAG: 300   
-REWARD_DEADLINE: -300   
+REWARD_FOR_SWAP: 1
+REWARD_SCORE: 5
+REWARD_SCORE_TOFFOLI: 10
+REWARD_EMPTY_DAG: 50
+REWARD_DEADLINE: -50
 
 NUMQ: 10 
 NUMG: 10 
 TOFOLI_GATE_PROB: 0.2
 
-DISTANCE_MULT: 18       
-DISTANCE_QUANTUM_LINK: 30 
+DISTANCE_MULT: 10
+DISTANCE_QUANTUM_LINK: 5
 DISTANCE_BETWEEN_EPR: 1
 
 QPU_Type: 
@@ -59,18 +59,19 @@ use_GPU: true
 overwrite_existing_results_file: false
 randomise_random_seed: true
 save_model: true
-Algorithm: "CutQC"
+Algorithm: "RL_COMPILER"
 # RL_COMPILER, Adapt_DQC, Autocomm, CutQC, DQCM
 # 想要运行的智能体列表 (可以在命令行通过 AGENTS=[DQN,PPO] 动态覆盖)
 AGENTS: 
-  - DQN
+  - DDQN
+USE_STATE_COMPRESSION: "embedding"  # "padding", "embedding"
 
 # ==========================================
 # 3. 算法超参数 (Hyperparameters)
 # ==========================================
 hyperparameters:
   DQN_Agents:
-    learning_rate: 0.00001
+    learning_rate: 0.0001
     batch_size: 2560  # 256 * 10
     buffer_size: 100000
     epsilon: 1.0
@@ -80,10 +81,10 @@ hyperparameters:
     update_every_n_steps: 5
     linear_hidden_units: [140, 150]
     final_layer_activation: "None"
-    batch_norm: false
+    batch_norm: True
     gradient_clipping_norm: 0.7
     learning_iterations: 10
-    clip_rewards: false
+    clip_rewards: True
 
   Stochastic_Policy_Search_Agents:
     policy_network_type: "Linear"
