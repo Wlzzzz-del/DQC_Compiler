@@ -28,3 +28,4 @@ launch.json
 results/data_and_graphs/*
 *.csvs
 Models/*
+wandb/
