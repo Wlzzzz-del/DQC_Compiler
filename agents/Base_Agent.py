@@ -26,6 +26,14 @@ class Base_Agent(object):
                 "feature": "state_before_normalization",
             },
         )
+        # 定义按 episode 为 x 轴的指标，以便把 episode 级别的分数正确上报到独立的 x 轴上
+        try:
+            self.run.define_metric("Train/Score", step_metric="episode")
+            self.run.define_metric("Train/Max_Score_Seen", step_metric="episode")
+            self.run.define_metric("Train/Rolling_Score", step_metric="episode")
+            self.run.define_metric("Train/Max_Rolling_Score_Seen", step_metric="episode")
+        except Exception:
+            pass
         self.logger = self.setup_logger()
         self.debug_mode = config.debug_mode
         # if self.debug_mode: self.tensorboard = SummaryWriter()
@@ -207,7 +215,7 @@ class Base_Agent(object):
         while self.episode_number < num_episodes:
             self.reset_game()
             self.step()
-            print(self.episode_number)
+            # print(self.episode_number)
             if save_and_print_results: self.save_and_print_result()
         time_taken = time.time() - start
         self.locally_save_policy_MODEL()
@@ -275,12 +283,18 @@ class Base_Agent(object):
         sys.stdout.flush()
 
 
-        self.run.log({
+        # 为避免与按 step（环境步数）记录的其他指标产生非单调冲突，
+        # 这里统一使用全局环境步 `self.global_step_number` 作为 wandb 的 step
+        # 同时上报 episode 字段，使得定义了 episode 轴的指标可按 episode 正确显示，
+        # 且保留 step=self.global_step_number 保证与 step 轴的单调性一致。
+        log_dict = {
+                "episode": episode_num,
                 "Train/Score": current_score,
                 "Train/Max_Score_Seen": max_score,
                 "Train/Rolling_Score": rolling_score,
                 "Train/Max_Rolling_Score_Seen": max_rolling
-            }, step=episode_num)  # 强制将 X 轴绑定为 Episode 数量
+            }
+        self.run.log(log_dict, step=self.global_step_number)
         # self.run.update()
 
     def show_whether_achieved_goal(self):

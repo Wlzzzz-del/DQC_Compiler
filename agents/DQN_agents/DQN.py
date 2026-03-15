@@ -85,6 +85,39 @@ class DQN(Base_Agent):
             Q_targets = self.compute_q_targets(next_states, next_masks, rewards, dones)
         Q_expected = self.compute_expected_q_values(states, masks, actions)
         loss = F.mse_loss(Q_expected, Q_targets)
+
+        # 计算 TD error 统计并记录（logger + wandb）以便监控训练稳定性
+        try:
+            td_errors = (Q_expected - Q_targets).detach()
+            abs_td = td_errors.abs()
+            mean_abs_td = abs_td.mean().item()
+            max_abs_td = abs_td.max().item()
+            min_abs_td = abs_td.min().item()
+            loss_item = loss.item()
+        except Exception:
+            mean_abs_td = max_abs_td = min_abs_td = None
+            try: loss_item = loss.item()
+            except: loss_item = None
+
+        # 日志到文件
+        try:
+            self.logger.info("TD Loss: {} | TD_abs_mean: {} | TD_abs_max: {} | TD_abs_min: {}".format(
+                loss_item, mean_abs_td, max_abs_td, min_abs_td))
+        except Exception:
+            pass
+
+        # 记录到 wandb（如果可用）用于可视化
+        try:
+            if hasattr(self, 'run') and self.run is not None:
+                self.run.log({
+                    "Train/TD_loss": loss_item,
+                    "Train/TD_abs_mean": mean_abs_td,
+                    "Train/TD_abs_max": max_abs_td,
+                    "Train/TD_abs_min": min_abs_td
+                }, step=self.global_step_number)
+        except Exception:
+            pass
+
         return loss
 
     def compute_q_targets(self, next_states, next_mask, rewards, dones):

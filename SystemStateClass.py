@@ -774,42 +774,98 @@ class SystemStateClass():
 
 
     # step the emulator given a specific action
+    # def step_given_action(self, action_num):
+
+    #     matching_scores = [] # here we will store the edges that were picked with the autocomplete method of scoring (scores and tele-gates automatically done after an action)
+    #     reward = 0
+    #     #self.cur_mask = self.calculate_mask() # assume that the mask has been updated before you come here - at the initilization we have the initial mask
+    
+    #     # decode为action
+    #     taken_action = self.decode_action_fromNum(action_num)
+    #     cur_state = copy.deepcopy(self)           
+    #     self.perform_action(taken_action['action'], taken_action['edge'])  #make action and change self (state)
+
+    #     # Fill any scores or tele-gates that can happen immediately after the action of this time slot
+    #     matching_scores = []  #which links were triggered for scores and telegate
+    #     matching_scores,cur_reward = self.fill_matching(matching_scores)   ## Here we auto fill with the scores and tele-gates! The possible scores and tele-gate actually are implemented here automatically!
+    #     reward += cur_reward
+        
+        
+    #     self.distance_metric = self.calculate_distance_metric() # this metric decides the moving reward - what actions did make the qubits that should come together closer?
+    #     dif_score = 0
+    #     if (reward == 0 and action_num != 0): #it did not score and it is not stop
+    #         dif_score = self.distance_metric_prev - self.distance_metric
+    #         reward = dif_score * Constants.DISTANCE_MULT 
+    #     elif (action_num == 0): #we did stop
+    #         reward = Constants.REWARD_STOP
+    #     self.distance_metric_prev = self.distance_metric #the previous for the next one
+
+    
+    #     self.cur_mask = self.calculate_mask()  # SOS UPDATE the mask with the new changes/new state
+        
+    #     flagSuccess = False
+    #     if len(self.my_DAG.DAG.nodes) == 0 : 
+    #         reward = Constants.REWARD_EMPTY_DAG
+    #         flagSuccess = True
+    #     #return reward, self, nx.is_empty(self.my_DAG.DAG)
+    #     return reward, self, flagSuccess
+
     def step_given_action(self, action_num):
 
-        matching_scores = [] # here we will store the edges that were picked with the autocomplete method of scoring (scores and tele-gates automatically done after an action)
+        matching_scores = [] 
         reward = 0
-        #self.cur_mask = self.calculate_mask() # assume that the mask has been updated before you come here - at the initilization we have the initial mask
-    
+        
         # decode为action
         taken_action = self.decode_action_fromNum(action_num)
-        cur_state = copy.deepcopy(self)           
-        self.perform_action(taken_action['action'], taken_action['edge'])  #make action and change self (state)
+        cur_state = copy.deepcopy(self)            
+        self.perform_action(taken_action['action'], taken_action['edge']) 
 
-        # Fill any scores or tele-gates that can happen immediately after the action of this time slot
-        matching_scores = []  #which links were triggered for scores and telegate
-        matching_scores,cur_reward = self.fill_matching(matching_scores)   ## Here we auto fill with the scores and tele-gates! The possible scores and tele-gate actually are implemented here automatically!
+        # ==================== [1. 门执行奖励] ====================
+        matching_scores = []  
+        matching_scores, cur_reward = self.fill_matching(matching_scores)   
         reward += cur_reward
         
+        # 定义监视变量
+        gate_reward = cur_reward
+        distance_reward = 0
+        stop_reward = 0
+        completion_reward = 0
         
-        self.distance_metric = self.calculate_distance_metric() # this metric decides the moving reward - what actions did make the qubits that should come together closer?
+        self.distance_metric = self.calculate_distance_metric() 
         dif_score = 0
+        
+        # ==================== [2 & 3. 距离奖励与停止惩罚] ====================
         if (reward == 0 and action_num != 0): #it did not score and it is not stop
             dif_score = self.distance_metric_prev - self.distance_metric
-            reward = dif_score * Constants.DISTANCE_MULT 
+            distance_reward = dif_score * Constants.DISTANCE_MULT
+            reward = distance_reward 
         elif (action_num == 0): #we did stop
-            reward = Constants.REWARD_STOP
-        self.distance_metric_prev = self.distance_metric #the previous for the next one
-
+            stop_reward = Constants.REWARD_STOP
+            reward = stop_reward
+            
+        self.distance_metric_prev = self.distance_metric 
     
-        self.cur_mask = self.calculate_mask()  # SOS UPDATE the mask with the new changes/new state
+        self.cur_mask = self.calculate_mask()  
         
+        # ==================== [4. 通关终极奖励] ====================
         flagSuccess = False
         if len(self.my_DAG.DAG.nodes) == 0 : 
-            reward = Constants.REWARD_EMPTY_DAG
+            completion_reward = Constants.REWARD_EMPTY_DAG
+            reward = completion_reward
             flagSuccess = True
-        #return reward, self, nx.is_empty(self.my_DAG.DAG)
+            
+        # ==================== [打印监视器] ====================
+        # 使用格式化字符串清晰地展示奖励的来源
+        # print(f"[Reward Monitor] Action: {action_num:<3} | "
+        #       f"Gate: {gate_reward:>5.2f} | "
+        #       f"Distance (dif_score={dif_score:>5.2f}): {distance_reward:>5.2f} | "
+        #       f"Stop: {stop_reward:>5.2f} | "
+        #       f"Completion: {completion_reward:>5.2f} || "
+        #       f"FINAL REWARD: {reward:>6.2f}")
+        # 如果你想使用日志记录，可以将上面的 print 替换为：
+        # self.logger.info(f"[Reward Monitor] Action: {action_num} | Gate: {gate_reward} | Distance: {distance_reward} | Stop: {stop_reward} | Completion: {completion_reward} || FINAL: {reward}")
+
         return reward, self, flagSuccess
-        
 
 
     
@@ -1366,6 +1422,7 @@ class SystemStateClass():
                 # 送入双图编码器，得到固定长度的 Embedding Vector
                 state_embedding = self.state_encoder(snuh_data, tdag_data)
             
+            # print("State embedding shape:", state_embedding.shape)  # 调试输出，查看嵌入向量的维度
             # 返回 1D 的 numpy array 给强化学习框架 (如 Gym/RLlib 等)
             return state_embedding.squeeze().cpu().numpy()
 
