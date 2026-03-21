@@ -39,6 +39,8 @@ class SystemStateClass():
         self.cur_mask = self.calculate_mask()  # initialize the current mask
 
         self.state_encoder = DQC_StateEncoder(c_phy=4, c_log=5, h_dim_phy=64, h_dim_log=64, out_dim=128)
+        self.ent_cost = 0
+        self.waiting_time = 0
 
  
     def is_action_possible(self, link):
@@ -65,8 +67,10 @@ class SystemStateClass():
             raise ValueError(f"Action cannot be performed due to cooldown: {action}")
 
         if action == "GENERATE":
+            # print('*************************WE Generate!!************************')
             self.generate(link)
         elif action == "SWAP":
+            # print('*************************WE SWAP!!************************')
             self.swap(link)
         elif action == "SCORE":
             performed_score = self.score(link)
@@ -75,22 +79,28 @@ class SystemStateClass():
             self.update_frontier()
         elif action == "SCORE_TOFFOLI":
             performed_score = self.score_toffoli(link)
-            # print('*************************WE SCORE TOFFOLI!!************************')
+            print('*************************WE SCORE TOFFOLI!!************************')
             # print("state is: ", self.convert_self_to_state_vector())
             self.update_frontier()
         elif action == "tele-gate":
+            self.ent_cost +=1
             performed_score = self.tele_gate(link)
             print('*************************WE TELEGATE!!************************')
             # print("state is: ", self.convert_self_to_state_vector())
             self.update_frontier()
         elif action == "tele-qubit":
+            self.ent_cost +=1
+            # print('*************************WE TELEQUBIT!!************************')
             self.tele_qubit(link)
         elif action == "stop":
+            self.waiting_time += 1
             self.stop()
         # NOTE: 新定义的动作
         elif action == "GENERATE_GHZ":
+            # print('*************************WE GENERATE_GHZ!!************************')
             self.generate_GHZ(link)
         elif action == "REMOTE_TOFFOLI":
+            self.ent_cost +=1
         # REMOTE_TOFFOLI 在FILL Match中调用
             print('*************************WE REMOTE_TOFOLIO_GATE!!************************')
             self.remote_tofo(link)
@@ -774,42 +784,98 @@ class SystemStateClass():
 
 
     # step the emulator given a specific action
+    # def step_given_action(self, action_num):
+
+    #     matching_scores = [] # here we will store the edges that were picked with the autocomplete method of scoring (scores and tele-gates automatically done after an action)
+    #     reward = 0
+    #     #self.cur_mask = self.calculate_mask() # assume that the mask has been updated before you come here - at the initilization we have the initial mask
+    
+    #     # decode为action
+    #     taken_action = self.decode_action_fromNum(action_num)
+    #     cur_state = copy.deepcopy(self)           
+    #     self.perform_action(taken_action['action'], taken_action['edge'])  #make action and change self (state)
+
+    #     # Fill any scores or tele-gates that can happen immediately after the action of this time slot
+    #     matching_scores = []  #which links were triggered for scores and telegate
+    #     matching_scores,cur_reward = self.fill_matching(matching_scores)   ## Here we auto fill with the scores and tele-gates! The possible scores and tele-gate actually are implemented here automatically!
+    #     reward += cur_reward
+        
+        
+    #     self.distance_metric = self.calculate_distance_metric() # this metric decides the moving reward - what actions did make the qubits that should come together closer?
+    #     dif_score = 0
+    #     if (reward == 0 and action_num != 0): #it did not score and it is not stop
+    #         dif_score = self.distance_metric_prev - self.distance_metric
+    #         reward = dif_score * Constants.DISTANCE_MULT 
+    #     elif (action_num == 0): #we did stop
+    #         reward = Constants.REWARD_STOP
+    #     self.distance_metric_prev = self.distance_metric #the previous for the next one
+
+    
+    #     self.cur_mask = self.calculate_mask()  # SOS UPDATE the mask with the new changes/new state
+        
+    #     flagSuccess = False
+    #     if len(self.my_DAG.DAG.nodes) == 0 : 
+    #         reward = Constants.REWARD_EMPTY_DAG
+    #         flagSuccess = True
+    #     #return reward, self, nx.is_empty(self.my_DAG.DAG)
+    #     return reward, self, flagSuccess
+
     def step_given_action(self, action_num):
 
-        matching_scores = [] # here we will store the edges that were picked with the autocomplete method of scoring (scores and tele-gates automatically done after an action)
+        matching_scores = [] 
         reward = 0
-        #self.cur_mask = self.calculate_mask() # assume that the mask has been updated before you come here - at the initilization we have the initial mask
-    
+        
         # decode为action
         taken_action = self.decode_action_fromNum(action_num)
-        cur_state = copy.deepcopy(self)           
-        self.perform_action(taken_action['action'], taken_action['edge'])  #make action and change self (state)
+        cur_state = copy.deepcopy(self)            
+        self.perform_action(taken_action['action'], taken_action['edge']) 
 
-        # Fill any scores or tele-gates that can happen immediately after the action of this time slot
-        matching_scores = []  #which links were triggered for scores and telegate
-        matching_scores,cur_reward = self.fill_matching(matching_scores)   ## Here we auto fill with the scores and tele-gates! The possible scores and tele-gate actually are implemented here automatically!
+        # ==================== [1. 门执行奖励] ====================
+        matching_scores = []  
+        matching_scores, cur_reward = self.fill_matching(matching_scores)   
+        # print("matching_scores:", matching_scores)
         reward += cur_reward
         
+        # 定义监视变量
+        gate_reward = cur_reward
+        distance_reward = 0
+        stop_reward = 0
+        completion_reward = 0
         
-        self.distance_metric = self.calculate_distance_metric() # this metric decides the moving reward - what actions did make the qubits that should come together closer?
+        self.distance_metric = self.calculate_distance_metric() 
         dif_score = 0
+        
+        # ==================== [2 & 3. 距离奖励与停止惩罚] ====================
         if (reward == 0 and action_num != 0): #it did not score and it is not stop
             dif_score = self.distance_metric_prev - self.distance_metric
-            reward = dif_score * Constants.DISTANCE_MULT 
+            distance_reward = dif_score * Constants.DISTANCE_MULT
+            reward = distance_reward 
         elif (action_num == 0): #we did stop
-            reward = Constants.REWARD_STOP
-        self.distance_metric_prev = self.distance_metric #the previous for the next one
-
+            stop_reward = Constants.REWARD_STOP
+            reward = stop_reward
+        # print("Distance metric:", self.distance_metric, "Previous distance metric:", self.distance_metric_prev, "Difference in score:", dif_score)
+        self.distance_metric_prev = self.distance_metric 
     
-        self.cur_mask = self.calculate_mask()  # SOS UPDATE the mask with the new changes/new state
+        self.cur_mask = self.calculate_mask()  
         
+        # ==================== [4. 通关终极奖励] ====================
         flagSuccess = False
         if len(self.my_DAG.DAG.nodes) == 0 : 
-            reward = Constants.REWARD_EMPTY_DAG
+            completion_reward = Constants.REWARD_EMPTY_DAG
+            reward = completion_reward
             flagSuccess = True
-        #return reward, self, nx.is_empty(self.my_DAG.DAG)
+        # ==================== [打印监视器] ====================
+        # 使用格式化字符串清晰地展示奖励的来源
+        # print(f"[Reward Monitor] Action: {action_num:<3} | "
+        #       f"Gate: {gate_reward:>5.2f} | "
+        #       f"Distance (dif_score={dif_score:>5.2f}): {distance_reward:>5.2f} | "
+        #       f"Stop: {stop_reward:>5.2f} | "
+        #       f"Completion: {completion_reward:>5.2f} || "
+        #       f"FINAL REWARD: {reward:>6.2f}")
+        # 如果你想使用日志记录，可以将上面的 print 替换为：
+        # self.logger.info(f"[Reward Monitor] Action: {action_num} | Gate: {gate_reward} | Distance: {distance_reward} | Stop: {stop_reward} | Completion: {completion_reward} || FINAL: {reward}")
+        # print(f"Action: {action_num} | Gate: {gate_reward} | Distance (dif_score={dif_score}): {distance_reward} | Stop: {stop_reward} | Completion: {completion_reward} || FINAL REWARD: {reward}")
         return reward, self, flagSuccess
-        
 
 
     
@@ -1036,54 +1102,6 @@ class SystemStateClass():
                 temp_G.edges[edge]['virtual'] = True
                 temp_G.edges[edge]['weight'] = Constants.DISTANCE_BETWEEN_EPR # from quantum reduce it temporarily to 1 since we have an entanglement there, remember to increase again when this entanglement is used
 
-        # add ghz virtual links
-        # for ghz_id, (box1, box2, box3) in self.qm.GHZ_triplets.items():
-        #     edge = (box1,box2,box3)
-        #     # temp_G.edges[edge]# debbugging: see if the edge exist
-        #     if edge not in self.G.edges:
-                    # temp_G.add_edge(edge, weight = Constants.DISTANCE_BETWEEN_EPR, label="virtual", virtual=True)
-            # NOTE: GHZ的边是三元边，之前的代码没有正确处理三元边的添加和属性设置，这里需要特别注意
-            # elif (temp_G.edges[edge]['label'] == "ghz"):
-            #     temp_G.edges[edge]['virtual'] = True
-            #     temp_G.edges[edge]['weight'] = Constants.DISTANCE_BETWEEN_EPR # from quantum reduce it temporarily to 1 since we have an entanglement there, remember to increase again when this entanglement is used
-
-        # Iterate over the frontier to calculate distances
-        # print("FRONTIER:", self.frontier)
-        # for tmp in self.frontier:
-        #     if(len(tmp)==2):# EPR的情况
-        #         ball1, ball2 = tmp[0], tmp[1]
-        #         distance, epr_links_used = self.calculate_distance_between_balls(ball1, ball2, temp_G)
-        #         distance_metric += distance
-        #         # Remove used EPR links from temp_G
-        #         for link in epr_links_used:
-        #             if link not in self.G.edges:
-        #                 temp_G.remove_edge(*link)
-        #             elif (temp_G.edges[link]['label'] == "quantum"):
-        #                 temp_G.edges[link]['weight'] = Constants.DISTANCE_QUANTUM_LINK # previous entanglement is used so get it back
-        #                 temp_G.edges[link]['virtual'] = False
-
-        #     else:# TOFOLLIO的情况
-        #         ball1, ball2, ball3 = tmp[0], tmp[1], tmp[2]
-        #         distance1, epr_links_used1 = self.calculate_distance_between_balls(ball1, ball2, temp_G)
-        #         distance2, epr_links_used2 = self.calculate_distance_between_balls(ball2, ball3, temp_G)
-        #         distance3, epr_links_used3 = self.calculate_distance_between_balls(ball1, ball3, temp_G)
-        #         distances_data = [(distance1, epr_links_used1),(distance2, epr_links_used2),(distance3, epr_links_used3)]
-        #         distances_data.sort(key=lambda x: x[0], reverse=True)
-        #         top1_epr_links = distances_data[0][1]
-        #         top2_epr_links = distances_data[1][1]
-        #         eprlinks = [top1_epr_links,top2_epr_links]
-        #         distance_metric += distances_data[0][0]
-        #         distance_metric += distances_data[1][0]
-
-        #         # Remove used EPR links from temp_G
-        #         for epr in eprlinks:
-        #             for link in epr:
-        #                 if link not in self.G.edges:
-        #                     # NOTE:这边报错
-        #                     temp_G.remove_edge(*link)
-        #                 elif (temp_G.edges[link]['label'] == "ghz"):
-        #                     temp_G.edges[link]['weight'] = Constants.DISTANCE_QUANTUM_LINK # previous entanglement is used so get it back
-        #                     temp_G.edges[link]['virtual'] = False
         for ghz_id, (box1, box2, box3) in self.qm.GHZ_triplets.items():
             # 1. 将三元边拆解为三条两两相连的普通边
             ghz_edges = [(box1, box2), (box2, box3), (box1, box3)]
@@ -1133,7 +1151,7 @@ class SystemStateClass():
                         elif temp_G.edges[link].get('label') == "ghz":
                             temp_G.edges[link]['weight'] = Constants.DISTANCE_QUANTUM_LINK
                             temp_G.edges[link]['virtual'] = False
-
+        # print("DEBUG: Distance Metric Calculated:", distance_metric)
         return distance_metric
 
     # def convert_self_to_state_vector(self):
@@ -1366,6 +1384,7 @@ class SystemStateClass():
                 # 送入双图编码器，得到固定长度的 Embedding Vector
                 state_embedding = self.state_encoder(snuh_data, tdag_data)
             
+            # print("State embedding shape:", state_embedding.shape)  # 调试输出，查看嵌入向量的维度
             # 返回 1D 的 numpy array 给强化学习框架 (如 Gym/RLlib 等)
             return state_embedding.squeeze().cpu().numpy()
 

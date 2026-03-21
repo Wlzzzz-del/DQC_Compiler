@@ -4,31 +4,31 @@ defaults:
 # 1. 物理环境与量子限制 (原 Constants)
 # ==========================================
 MAX_EPR_PAIR: 9
-MAX_GHZ_PAIR: 9
+MAX_GHZ_PAIR: 10
 
-COOLDOWN_SWAP: 3
-COOLDOWN_GENERATE: 5
-COOLDOWN_GHZGENERATE: 5
+COOLDOWN_SWAP: 1
+COOLDOWN_GENERATE: 3
+COOLDOWN_GHZGENERATE: 3
 COOLDOWN_SCORE: 1
-COOLDOWN_TELE_GATE: 5
-COOLDOWN_TELE_QUBIT: 5
-COOLDOWN_TELE_TOFFOLI: 5
+COOLDOWN_TELE_GATE: 3
+COOLDOWN_TELE_QUBIT: 3
+COOLDOWN_TELE_TOFFOLI: 3
 
 ENTANGLEMENT_PROBABILITY: 0.95 
 
-REWARD_STOP: -2 
-REWARD_FOR_SWAP: 1
-REWARD_SCORE: 5
-REWARD_SCORE_TOFFOLI: 10
-REWARD_EMPTY_DAG: 50
-REWARD_DEADLINE: -50
+REWARD_STOP: -20
+REWARD_FOR_SWAP: -1
+REWARD_SCORE: 500
+REWARD_SCORE_TOFFOLI: 500
+REWARD_EMPTY_DAG: 3000
+REWARD_DEADLINE: -3000
 
 NUMQ: 10 
-NUMG: 10 
-TOFOLI_GATE_PROB: 0.2
+NUMG: 8
+TOFOLI_GATE_PROB: 0.1
 
-DISTANCE_MULT: 10
-DISTANCE_QUANTUM_LINK: 5
+DISTANCE_MULT: 18
+DISTANCE_QUANTUM_LINK: 30
 DISTANCE_BETWEEN_EPR: 1
 
 QPU_Type: 
@@ -39,7 +39,7 @@ QPU_Type:
 IF_ENABLE_TOFFOLIOS: true
 USE_DEC_DEDLINE: false
 USE_DSF_MAPPING: false
-COMPLETION_DEADLINE: 1000
+COMPLETION_DEADLINE: 2000
 result_path: "running_result/run_on_10Q_10G_with_tofoli02"
 
 # ==========================================
@@ -54,17 +54,19 @@ visualise_individual_results: false
 visualise_overall_agent_results: True
 baselines: true
 standard_deviation_results: 1.0
-runs_per_agent: 1
+runs_per_agent: 5
 use_GPU: true
-overwrite_existing_results_file: false
-randomise_random_seed: true
+overwrite_existing_results_file: True
+randomise_random_seed: false
 save_model: true
 Algorithm: "RL_COMPILER"
 # RL_COMPILER, Adapt_DQC, Autocomm, CutQC, DQCM
 # 想要运行的智能体列表 (可以在命令行通过 AGENTS=[DQN,PPO] 动态覆盖)
 AGENTS: 
   - DDQN
-USE_STATE_COMPRESSION: "embedding"  # "padding", "embedding"
+USE_STATE_COMPRESSION: "padding"  
+# "padding": Normal
+# "embedding": state_compression,
 
 # ==========================================
 # 3. 算法超参数 (Hyperparameters)
@@ -73,18 +75,18 @@ hyperparameters:
   DQN_Agents:
     learning_rate: 0.0001
     batch_size: 2560  # 256 * 10
-    buffer_size: 100000
+    buffer_size: 80000
     epsilon: 1.0
     epsilon_decay_rate_denominator: 80
     discount_rate: 0.99
     tau: 0.001
-    update_every_n_steps: 5
-    linear_hidden_units: [140, 150]
+    update_every_n_steps: 3
+    linear_hidden_units: [110,100]
     final_layer_activation: "None"
-    batch_norm: True
+    batch_norm: False
     gradient_clipping_norm: 0.7
     learning_iterations: 10
-    clip_rewards: True
+    clip_rewards: False
 
   Stochastic_Policy_Search_Agents:
     policy_network_type: "Linear"
