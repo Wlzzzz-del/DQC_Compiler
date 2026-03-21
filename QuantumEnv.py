@@ -48,7 +48,10 @@ class EnvUpdater(gym.Env):      #gym is an opanAI's environment generator tools.
         self.dummy_stepCount = 0
         self.EpiCount = 0
         self.successfulGames = 0
-        
+
+        self.ent_cost = 0
+        self.waiting_time = 0
+
         self.epiTotalREward = 0
         self.epiTotalREward_raw = 0
 
@@ -66,13 +69,16 @@ class EnvUpdater(gym.Env):      #gym is an opanAI's environment generator tools.
         self.reward_filename = Constants.result_path+'rewards.csv'
         with open(self.reward_filename, 'a', newline="") as file:
             writer = csv.writer(file)
-            #writer.writerow(["Episode","Total"])
+            # row = [self.EpiCount, self.epiTotalREward_raw, self.epiTotalREward, self.successfulGames,self.waiting_time, self.ent_cost]
+            writer.writerow(["Episode","RawReward","NorReward","SuccessfulGames","WaitingTime","EntanglementCost"])
         
         # 完成时间记录
         self.done_filename = Constants.result_path+'doneTime.csv'    
         with open(self.reward_filename, 'a', newline="") as file2:
             writer2 = csv.writer(file2)
-            #writer.writerow(["Episode","Total"])
+            writer2.writerow(["Episode","Total"])
+        
+        # self.epr_
     
     def seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
@@ -121,6 +127,8 @@ class EnvUpdater(gym.Env):      #gym is an opanAI's environment generator tools.
         if self.reward_clip is not None:
             norm_reward = max(min(norm_reward, self.reward_clip), -self.reward_clip)
 
+        self.waiting_time += self.quantumEnv.state_object.waiting_time
+        self.ent_cost += self.quantumEnv.state_object.ent_cost
         self.epiTotalREward += norm_reward
         if successfulDone:
             self.successfulGames += 1
@@ -132,7 +140,9 @@ class EnvUpdater(gym.Env):      #gym is an opanAI's environment generator tools.
             #print("solved/done after step number: ", steptemp)
             # EPI是Episode, epitotalReward是该Episode的总奖励值
             # 同时记录 原始总 reward 与 归一化后的总 reward 以便排查
-            row = [self.EpiCount, self.epiTotalREward_raw, self.epiTotalREward]
+
+            # Recording here...
+            row = [self.EpiCount, self.epiTotalREward_raw, self.epiTotalREward, self.successfulGames,self.waiting_time, self.ent_cost]
             # EPI是Episode, steptemp是该应该完成的轮数
             row2 = [self.EpiCount, steptemp]
             append_list_as_row(self.reward_filename, row)
@@ -144,10 +154,10 @@ class EnvUpdater(gym.Env):      #gym is an opanAI's environment generator tools.
         if action == 0: ### action=0 is always a stop, and that is the only increase in step
             self.stepCount += 1
         
-        # print("action: ", action)
+        # print("[DEBUGGING]action: ", action)
         # print("new_state: ", new_state)
         # print("new_mask: ", new_mask)
-        # print("[DEBUGGING]reward: ", reward/1000)
+        # print("[DEBUGGING]reward: ", reward)
         
         # 尝试将reward缩放到更小的范围，看看能不能稳定训练
         return new_state, new_mask, reward, done, {}       #supposed to return new state, reward and done to the learning agent

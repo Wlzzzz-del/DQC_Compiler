@@ -32,6 +32,7 @@ class Base_Agent(object):
             self.run.define_metric("Train/Max_Score_Seen", step_metric="episode")
             self.run.define_metric("Train/Rolling_Score", step_metric="episode")
             self.run.define_metric("Train/Max_Rolling_Score_Seen", step_metric="episode")
+            self.run.define_metric("Train/Time_Taken", step_metric="episode")
         except Exception:
             pass
         self.logger = self.setup_logger()
@@ -58,7 +59,7 @@ class Base_Agent(object):
         self.max_rolling_score_seen = float("-inf")
         self.max_episode_score_seen = float("-inf")
         self.episode_number = 0
-        self.device = "cuda:0" if config.use_GPU else "cpu"
+        self.device = "cuda:0"
         self.visualise_results_boolean = config.visualise_individual_results
         self.global_step_number = 0
         self.turn_off_exploration = False
@@ -218,6 +219,11 @@ class Base_Agent(object):
             # print(self.episode_number)
             if save_and_print_results: self.save_and_print_result()
         time_taken = time.time() - start
+        try:
+            # 上报本次运行耗时到 wandb
+            self.run.log({"Train/Time_Taken": time_taken}, step=self.global_step_number)
+        except Exception:
+            pass
         self.locally_save_policy_MODEL()
         if show_whether_achieved_goal: self.show_whether_achieved_goal()
         #if self.config.save_model: self.locally_save_policy()
